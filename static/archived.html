@@ -28,7 +28,7 @@
 
       <div>
         <!-- if it's deleted from to.do page -->
-        <form action="../actions/recover_item.php" method="POST">
+        <form action="{$action}" method="POST">
           <!-- {$id} -->
           <input hidden name="item_id" value="{$id}">
           <input hidden name="recover_to" value="todo-list" />
@@ -37,7 +37,7 @@
           </button>
         </form>
         <!-- if it's deleted from completed page -->
-        <form action="../actions/recover_item.php" method="POST">
+        <form action="{$action}" method="POST">
           <!-- {$id} -->
           <input hidden name="item_id" value="{$id}">
           <input hidden name="recover_to" value="completed-list" />

@@ -31,7 +31,7 @@
         <div>
             <div class="w-80 mb-6">
                 <!-- {$loop start here} -->
-                <div class="bg-white max-w-sm mx-auto rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-105 cursor-pointer">
+                <div class="bg-white max-w-sm mx-auto my-4 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-105 cursor-pointer">
                     <div class="h-20 bg-purple-500 flex items-center justify-start gap-3">
                         <h1 class="text-white ml-4 border-2 py-2 px-4 rounded-full">
                             <!-- {$i} -->
@@ -40,7 +40,7 @@
                             <!-- {$title} -->
                         </p>
                     </div>
-                    <form action="" method="" id="todo-item-{$id}"
+                    <form action="{$action}" method="post" id="todo-item-{$id}"
                           class="my-0 flex items-center px-4 gap-3">
                                 <span class=''>
                                   <input hidden name="item_id" value="{$id}">
@@ -52,7 +52,7 @@
                             <!-- {$description} -->
                         </p>
                     </form>
-                    <form action="" method="">
+                    <form action="{$action}" method="post">
                         <input hidden name="item_id" value="{$id}">
                         <button type="submit"
                                 class="text-sm bg-red-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-red-500 duration-500">

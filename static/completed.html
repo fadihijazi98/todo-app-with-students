@@ -23,7 +23,7 @@
             </div>
 
             <div class="flex items-center px-4 gap-3">
-                    <form method="" action="" class='my-0'>
+                    <form method="post" action="{$action}" class='my-0'>
                             <!-- {$id} -->
                             <input hidden name="item_id" value="{$id}">
                             <input type="checkbox" onclick="document.getElementById('completed-item-{$id}').submit()"
@@ -35,7 +35,7 @@
                 </p>
             </div>
 
-            <form action="" method="">
+            <form action="{$action}" method="post">
                 <!-- {$id} -->
                 <input hidden name="item_id" value="{$id}">
                 <input hidden name="delete_from" value="completed-list" />
