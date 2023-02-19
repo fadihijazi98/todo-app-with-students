@@ -1,4 +1,45 @@
-<div class="bg-gray-100 space-y-12 py-10 rounded-2xl">
+
+<?php 
+session_start();
+
+$todoitems = $_SESSION ['item'];
+
+
+
+
+?>
+
+
+
+
+
+
+
+
+
+<!DOCTYPE HTML PUBLIC>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;400;700&display=swap"
+          rel="stylesheet">
+    <title>
+    </title>
+    <style>
+        .font-source-code-pro {
+            font-family: 'Source Code Pro', monospace;
+        }
+    </style>
+</head>
+<body>
+<div id="main" class="min-h-screen bg-gray-200 p-8">
+    <!-- ::put the (todo, completed, or archived) content here;; -->
+    <div class="bg-gray-100 space-y-12 py-10 rounded-2xl">
     <div>
         <h3 class="text-3xl text-center font-source-code-pro"> Todo items </h3>
         <!-- ::if statement start here to show this message once;; -->
@@ -10,7 +51,7 @@
     <!-- to-do item element -->
     <div class="container flex justify-center gap-16">
         <div class="w-80 border-r border-r-2 pr-4 border-purple-500">
-            <form action="::path of php file to call with POST method to create new items with 'title', and 'description' data;;" method="post">
+            <form action="todo-insert.php" method="post">
                 <div class="mb-6">
                     <label for="title"
                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Title</label>
@@ -33,13 +74,17 @@
         <div>
             <div class="w-80 mb-6">
                 <!-- ::loop of items.todo should start here;; -->
+                <?php foreach($todoitems as $index => $item){ ?>
                 <div class="bg-white my-4 max-w-sm mx-auto rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-105 cursor-pointer">
                     <div class="h-20 bg-purple-500 flex items-center justify-start gap-3">
                         <h1 class="text-white ml-4 border-2 py-2 px-4 rounded-full">
                             <!-- {$index} -->
+                            <?php echo $index +1 ?>
                         </h1>
                         <p class="mr-20 text-white text-lg">
                             <!-- {$title} -->
+                            <?php echo $item ['title']?>
+
                         </p>
                     </div>
                     <form action="::path of php file to call with POST method to assign the items.todo to items.completed;;" method="post" id="todo-item-{$id}"
@@ -52,6 +97,7 @@
                                 </span>
                         <p class="py-6 text-lg tracking-wide gap-2 text-purple-800">
                             <!-- {$description} -->
+                            <?php echo $item ['description']?>
                         </p>
                     </form>
                     <form action="::path of php file to call with POST method to delete item;;" method="post">
@@ -66,11 +112,16 @@
                         <p>Created at</p>
                         <p>
                             <!-- {$created_at} -->
+                            <?php echo $item ['create_at']?>
                         </p>
                     </div>
                 </div>
                 <!-- ::loop of items.todo should end here;; -->
+                <?php } ?> 
             </div>
         </div>
     </div>
 </div>
+</div>
+</body>
+</html>
