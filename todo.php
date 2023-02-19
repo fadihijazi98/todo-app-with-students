@@ -1,6 +1,7 @@
 <?php
 session_start();
 $todoItems = $_SESSION['items'];
+//session_unset();
 ?>
 <!DOCTYPE HTML PUBLIC>
 <html lang="en">
@@ -61,7 +62,12 @@ $todoItems = $_SESSION['items'];
             <div>
                 <div class="w-80 mb-6">
                     <!-- ::loop of items.todo should start here;; -->
-                    <?php foreach($todoItems as $i=> $item){?>
+                    <?php foreach($todoItems as $i=> $item){
+                      echo $i." ". $item['status'].'<br>';
+                        if($item['status']==='completed'){
+
+                            continue;}
+                        ?>
                     <div class="bg-white my-4 max-w-sm mx-auto rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-105 cursor-pointer">
                         <div class="h-20 bg-purple-500 flex items-center justify-start gap-3">
                             <h1 class="text-white ml-4 border-2 py-2 px-4 rounded-full">
@@ -74,7 +80,7 @@ $todoItems = $_SESSION['items'];
 
                             </p>
                         </div>
-                        <form action="insert_todo_action.php" method="post" id="todo-item-{$id}"
+                        <form action="::path of php file to call with POST method to assign items.completed as items.todo (un-completed anymore);;" method="post" id="todo-item-{$id}"
                               class="my-0 flex items-center px-4 gap-3">
                                 <span class=''>
                                   <input hidden name="item_id" value="{$id}">
@@ -88,7 +94,7 @@ $todoItems = $_SESSION['items'];
 
                             </p>
                         </form>
-                        <form action="insert_todo_action.php" method="post">
+                        <form action="::path of php file to call with POST method to recover items.deleted to items.todo;;" method="post">
                             <input hidden name="item_id" value="{$id}">
                             <input hidden name="delete_from" value="{$todo_items_constant}"/>
                             <button type="submit"
