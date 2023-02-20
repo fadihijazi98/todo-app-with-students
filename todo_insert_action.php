@@ -1,20 +1,13 @@
 <?php
 
-/**
- * superglobal variables
-     * $_POST
-     * $_GET
-     * $_SERVER
- * what next? Session
- */
+session_start();
 
-$title = $_POST['title'];
-$description = $_POST['description'];
-
-$todoItems = [];
-
-$todoItems[] = [
-    'title' => $title,
-    'description' => $description
+$_SESSION["items"][] = [
+    "title"=>$_POST["title"],
+    "description"=>$_POST["description"],
+    "status"=>"to do",
+    "created_at"=>date("Y-m-d H:i:s")
 ];
+
+header("Location:todo_by_jamila.php");
 
