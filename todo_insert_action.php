@@ -9,5 +9,5 @@ $_SESSION["items"][] = [
     "created_at"=>date("Y-m-d H:i:s")
 ];
 
-header("Location:todo_by_jamila.php");
+header("Location:todo.php");
 
