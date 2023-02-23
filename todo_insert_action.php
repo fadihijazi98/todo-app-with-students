@@ -70,7 +70,7 @@ function generateID()
 
         }
 
-        return (max($max_index_of_todos, $max_index_of_completes, $max_index_of_deletes)) + 1;
+        return max($max_index_of_todos, $max_index_of_completes, $max_index_of_deletes) + 1;
 
     }
 
