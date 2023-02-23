@@ -50,7 +50,7 @@ $completedItems = $_SESSION["items"]["completed"];
                 <div class="h-20 bg-green-500 flex items-center justify-start gap-3">
                     <h1 class="text-white ml-4 border-2 py-2 px-4 rounded-full">
                         <!-- {$index}  -->
-                        <?php echo (int)($index)+1; ?>
+                        <?php echo $index++; ?>
                     </h1>
                     <p class="mr-20 text-white text-lg">
                         <!-- {$title} -->
@@ -66,7 +66,7 @@ $completedItems = $_SESSION["items"]["completed"];
                     </form>
                     <p class="py-6 text-lg tracking-wide gap-2 text-green-800">
                         <!-- {$description} -->
-                        <?php echo "[COMPLETED]",$completedItem["description"]; ?>
+                        <?php echo "[COMPLETED]"," ", $completedItem["description"]; ?>
                     </p>
                 </div>
 
