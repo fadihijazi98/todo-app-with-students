@@ -52,7 +52,7 @@ $completed_items = $_SESSION['items']['completed'];
             </div>
 
             <div class="flex items-center px-4 gap-3">
-                    <form method="" action="" class='my-0'>
+                    <form method="post" action="return_complete_item_to_todo.php" id="completed-item-<?php echo $id;?>" class='my-0'>
                     
                             <input hidden name="item_id" value="<?php echo $id;?>">
                             <input type="checkbox" onclick="document.getElementById('completed-item-<?php echo $id;?>').submit()"

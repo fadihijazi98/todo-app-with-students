@@ -16,23 +16,23 @@ function generated_id(){
     
     $items=$_SESSION['items'];
 
-    $todoItems=[];
-    $completedItems=[];
-    $deletedItems=[];
+    $todoItems=[0];
+    $completedItems=[0];
+    $deletedItems=[0];
 
-    if(key_exists('todo',$items)){
-    $todoItems=array_keys($items['todo']);}
+    if(key_exists('todo',$items) && sizeof($items['todo'])>0)
+    $todoItems=array_keys($items['todo']);
 
-    if(key_exists('completed',$items)){
-    $completedItems=array_keys($items['completed']);}
+    if(key_exists('completed',$items) && sizeof($items['completed'])>0)
+    $completedItems=array_keys($items['completed']);
 
-    if(key_exists('deleted',$items)){
-    $deletedItems=array_keys($items['deleted']);}
-      if($deletedItems!=null && $completedItems!=null && $todoItems!=null ){
+    if(key_exists('deleted',$items) && sizeof($items['deleted'])>0)
+    $deletedItems=array_keys($items['deleted']);
+      
     $maxIdOfTodos=max($todoItems);
     $maxIdOfCompletes=max($completedItems);
     $maxIdOfDeletes=max($deletedItems);
        
-    return max($maxIdOfCompletes,$maxIdOfDeletes,$maxIdOfTodos)+1;}
+    return max($maxIdOfCompletes,$maxIdOfDeletes,$maxIdOfTodos)+1;
 }
 ?>
