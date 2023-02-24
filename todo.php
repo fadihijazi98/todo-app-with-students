@@ -1,6 +1,6 @@
 <?php
 session_start();
-$todoItems = $_SESSION['items'];
+$todoItems = $_SESSION['items']['todo'];
 //session_unset();
 ?>
 <!DOCTYPE HTML PUBLIC>
@@ -62,8 +62,9 @@ $todoItems = $_SESSION['items'];
             <div>
                 <div class="w-80 mb-6">
                     <!-- ::loop of items.todo should start here;; -->
-                    <?php foreach($todoItems as $i=> $item){
-                      echo $i." ". $item['status'].'<br>';
+                    <?php $index=1;?>
+                    <?php foreach($todoItems as $id=> $item){
+                     // echo $i." ". $item['status'].'<br>';
                         if($item['status']==='completed'){
 
                             continue;}
@@ -72,7 +73,7 @@ $todoItems = $_SESSION['items'];
                         <div class="h-20 bg-purple-500 flex items-center justify-start gap-3">
                             <h1 class="text-white ml-4 border-2 py-2 px-4 rounded-full">
                                 <!-- {$index} -->
-                                <?php echo $i+1; ?>
+                                <?php echo $index++; ?>
                             </h1>
                             <p class="mr-20 text-white text-lg">
                                 <!-- {$title} -->
@@ -80,12 +81,12 @@ $todoItems = $_SESSION['items'];
 
                             </p>
                         </div>
-                        <form action="::path of php file to call with POST method to assign items.completed as items.todo (un-completed anymore);;" method="post" id="todo-item-{$id}"
+                        <form action="changed_completed_action.php" method="post" id="todo-item-<?php echo $id?>"
                               class="my-0 flex items-center px-4 gap-3">
                                 <span class=''>
-                                  <input hidden name="item_id" value="{$id}">
+                                  <input hidden name="item_id" value="<?php echo $id?>">
                                   <input type="checkbox"
-                                         onclick="document.getElementById('todo-item-{$id}').submit()"
+                                         onclick="document.getElementById('todo-item-<?php echo $id?>').submit()"
                                          class='h-6 w-6 bg-white checked:scale-75 transition-all duration-200 peer'/>
                                 </span>
                             <p class="py-6 text-lg tracking-wide gap-2 text-purple-800">
