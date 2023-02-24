@@ -2,7 +2,7 @@
 
 
 session_start();
-$todoItem = $_SESSION["items"];
+$todoItem = $_SESSION["items"]['todo'];
 
 ?>
 
@@ -62,35 +62,36 @@ $todoItem = $_SESSION["items"];
         </div>
         <div>
             <div class="w-80 mb-6">
+                <?php $index=1; ?>
                 <!-- ::loop of items.todo should start here;; -->
-                <?php foreach($todoItem as $key => $index) { ?>
+                <?php foreach($todoItem as $id => $todoitems) { ?>
                 <div class="bg-white my-4 max-w-sm mx-auto rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-105 cursor-pointer">
                     <div class="h-20 bg-purple-500 flex items-center justify-start gap-3">
                         <h1 class="text-white ml-4 border-2 py-2 px-4 rounded-full">
                             <!-- {$index} -->
-                            <?php echo $key+1; ?>
+                            <?php echo $index++; ?>
                         </h1>
                         <p class="mr-20 text-white text-lg">
                             <!-- {$title} -->
-                            <?php echo $index['title']; ?>
+                            <?php echo $todoitems['title']; ?>
                         </p>
                     </div>
-                    <form action="::path of php file to call with POST method to assign the items.todo to items.completed;;" method="post" id="todo-item-{$id}"
+                    <form action="assign-todo-item-as-completed.php" method="post" id="todo-item-<?php echo $id; ?>"
                           class="my-0 flex items-center px-4 gap-3">
                                 <span class=''>
-                                  <input hidden name="item_id" value="{$id}">
+                                  <input hidden name="item_id" value="<?php echo $id; ?>">
                                   <input type="checkbox"
-                                         onclick="document.getElementById('todo-item-{$id}').submit()"
+                                         onclick="document.getElementById('todo-item-<?php echo $id; ?>').submit()"
                                          class='h-6 w-6 bg-white checked:scale-75 transition-all duration-200 peer'/>
                                 </span>
                         <p class="py-6 text-lg tracking-wide gap-2 text-purple-800">
                             <!-- {$description} -->
-                            <?php echo $index['discription']; ?>
+                            <?php echo $todoitems['description']; ?>
                         </p>
                     </form>
-                    <form action="::path of php file to call with POST method to delete item;;" method="post">
-                        <input hidden name="item_id" value="{$id}">
-                        <input hidden name="delete_from" value="{$todo_items_constant}" />
+                    <form action="assign-todo-item-as-deleted.php" method="post">
+                        <input hidden name="item_id" value="<?php echo $id; ?>">
+                        <input hidden name="delete_from" value="{todo-items_constant}" />
                         <button type="submit"
                                 class="text-sm bg-red-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-red-500 duration-500">
                             Delete
@@ -100,7 +101,7 @@ $todoItem = $_SESSION["items"];
                         <p>Created at</p>
                         <p>
                             <!-- {$created_at} -->
-                            <?php echo $index['created_at']; ?>
+                            <?php echo $todoitems['created_at']; ?>
                         </p>
                     </div>
                 </div>
