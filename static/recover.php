@@ -2,6 +2,7 @@
 session_start();
 $id=$_POST['item_id'];
 $recover_to=$_POST['recover_to'];
+$deleted_from=$_SESSION['items']['deleted'][$id]['deleted_from'];
 
 $item=$_SESSION['items']['deleted'][$id];
 unset($_SESSION['items']['deleted'][$id]);
@@ -9,9 +10,6 @@ unset($_SESSION['items']['deleted'][$id]);
 if($recover_to=='todo-list'){
     $to="todo";
     $completed_at=null;
-   
-
-
 }
 else{
     $to="completed";
@@ -26,5 +24,8 @@ $_SESSION['items'][$to][$id]=[
     "completed_at"=>$completed_at
 ];
 
-header("Location:deleted.php");
+if($deleted_from=='from_todo')
+header("Location:todo.php");
+else
+header("Location:completed.php");
 ?>
