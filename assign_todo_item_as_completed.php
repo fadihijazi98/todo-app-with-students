@@ -4,7 +4,7 @@ session_start();
 
 $id = $_POST["item_id"];
 
-$todoItem = $_SESSION["items"]["to do"][$id];
+$todoItem = $_SESSION["items"]["todo"][$id];
 
 $_SESSION["items"]["completed"][$id]=[
     "title"=>$todoItem["title"],
@@ -13,7 +13,9 @@ $_SESSION["items"]["completed"][$id]=[
     "completed_at"=>date("Y-m-d H:i:s")
 ];
 
-unset($_SESSION["items"]["to do"][$id]);
+$_SESSION["message"] = "The '{$todoItem["title"]}' is completed now :)";
+
+unset($_SESSION["items"]["todo"][$id]);
 
 header("Location:completed.php");
 

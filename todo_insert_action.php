@@ -5,7 +5,7 @@ session_start();
 $generated_ID = generateID();
 
 
-$_SESSION["items"]["to do"][$generated_ID]=[
+$_SESSION["items"]["todo"][$generated_ID]=[
 
     "title"=>$_POST["title"],
     "description"=>$_POST["description"],
@@ -13,7 +13,7 @@ $_SESSION["items"]["to do"][$generated_ID]=[
 
 ];
 
-
+$_SESSION["message"] = "The '{$_SESSION["items"]["todo"][$generated_ID]["title"]}' is created successfully ^^";
 
 header("Location:todo.php");
 
@@ -31,8 +31,8 @@ function generateID()
         $completedItems_indexes_as_keys = [];
         $deletedItems_indexes_as_keys = [];
 
-        if (key_exists("to do", $Items)) {
-            $todoItems_indexes_as_keys = array_keys($Items["to do"]);
+        if (key_exists("todo", $Items)) {
+            $todoItems_indexes_as_keys = array_keys($Items["todo"]);
         }
 
         if (key_exists("completed", $Items)) {

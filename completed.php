@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-
 $completedItems = $_SESSION["items"]["completed"];
 
 ?>
@@ -34,11 +33,15 @@ $completedItems = $_SESSION["items"]["completed"];
                 Completed items
             </h3>
             <!-- ::if statement start here to show this message once;; -->
-
+            <?php if(key_exists("message",$_SESSION)){ ?>
             <div class="bg-green-500 my-8 py-4 font-source-code-pro text-lg text-white text-center">
                 <!-- {$redirect_message} -->
+                <?php echo $_SESSION["message"];
+                unset($_SESSION["message"]);
+                ?>
             </div>
             <!-- ::if statement end here to show this message once;; -->
+            <?php } ?>
         </div>
         <!-- completed item element -->
         <div class="container mx-auto">
@@ -59,10 +62,11 @@ $completedItems = $_SESSION["items"]["completed"];
                 </div>
 
                 <div class="flex items-center px-4 gap-3">
-                    <form method="post" action="assign_completed_item_as_uncompleted.php" class='my-0'>
+                    <form method="post" action="assign_completed_item_as_uncompleted.php" id="completed-item-<?php echo $id; ?>" class='my-0'>
                         <input hidden name="item_id" value="<?php echo $id; ?>">
                         <input type="checkbox" onclick="document.getElementById('completed-item-<?php echo $id; ?>').submit()"
-                               checked class='h-6 w-6 bg-white checked:scale-75 transition-all duration-200 peer'/>
+                               checked class='h-6 w-6 bg-white checked:scale-75 transition-all duration-200 peer'
+                        />
                     </form>
                     <p class="py-6 text-lg tracking-wide gap-2 text-green-800">
                         <!-- {$description} -->
@@ -70,7 +74,7 @@ $completedItems = $_SESSION["items"]["completed"];
                     </p>
                 </div>
 
-                <form action="assign_completed_item_as_deleted.php" method="post">
+                <form action="assign_item_as_deleted.php" method="post">
                     <input hidden name="item_id" value="<?php echo $id; ?>">
                     <input hidden name="delete_from" value="completed_item" />
                     <button type="submit"
