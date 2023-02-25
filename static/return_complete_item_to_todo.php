@@ -3,7 +3,7 @@
 session_start();
 $id=$_POST['item_id'];
 
-$todoItem=$_SESSION['completed']['todo'][$id];
+$todoItem=$_SESSION['items']['completed'][$id];
 
 $_SESSION['items']['todo'][$id]=
 [
@@ -13,4 +13,4 @@ $_SESSION['items']['todo'][$id]=
 ];
 unset($_SESSION['items']['completed'][$id]);
 
-header("Location: todo.php");
+header("Location: completed.php");

@@ -64,10 +64,10 @@ $completed_items = $_SESSION['items']['completed'];
                 </p>
             </div>
 
-            <form action="" method="">
+            <form action="assign_item_as_deleted.php" method="POST">
             
                 <input hidden name="item_id" value="<?php echo $id;?>">
-                <input hidden name="delete_from" value="completed-list" />
+                <input hidden name="delete_from" value="completed-item" />
                 <button type="submit"
                         class="text-sm bg-red-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-red-500 duration-500">
                     Delete

@@ -82,9 +82,9 @@ session_start();
                         <?php echo $todoItem["description"];?>
                         </p>
                     </form>
-                    <form action="assign_todo_item_as_deleted.php" method="post">
+                    <form action="assign_item_as_deleted.php" method="post">
                         <input hidden name="item_id" value="<?php echo $id;?>">
-                        <input hidden name="delete_from" value="{$todo_items_constant}" />
+                        <input hidden name="delete_from" value="todo_item" />
                         <button type="submit"
                                 class="text-sm bg-red-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-red-500 duration-500">
                             Delete
