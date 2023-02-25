@@ -30,9 +30,15 @@ $todoItems = $_SESSION['items']['todo'];
         <div>
             <h3 class="text-3xl text-center font-source-code-pro"> Todo items </h3>
             <!-- ::if statement start here to show this message once;; -->
+            <?php if (key_exists('message', $_SESSION)) { ?>
             <div class="bg-purple-500 my-8 py-4 font-source-code-pro text-lg text-white text-center">
                 <!-- {$redirect_message} -->
+                <?php
+                echo $_SESSION['message'];
+                unset($_SESSION['message']);
+                ?>
             </div>
+            <?php } ?>
             <!-- ::if statement end here to show this message once;; -->
         </div>
         <!-- to-do item element -->
@@ -90,7 +96,7 @@ $todoItems = $_SESSION['items']['todo'];
                                 <?php echo $todoItem['description']; ?>
                             </p>
                         </form>
-                        <form action="assign_todo_item_as_deleted.php" method="post">
+                        <form action="assign_item_as_deleted.php" method="post">
                             <input hidden name="item_id" value="<?php echo $id; ?>">
                             <input hidden name="delete_from" value="todo_item"/>
                             <button type="submit"
