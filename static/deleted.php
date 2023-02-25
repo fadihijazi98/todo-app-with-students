@@ -57,6 +57,7 @@ $deleted_item=$_SESSION['items']['deleted'];
 
       <div>
         <!-- if it's deleted from to.do page -->
+        <?php if($item['deleted_from']=="from_todo"){?>
         <form action="recover.php" method="POST">
           <!-- {$id} -->
           <input hidden name="item_id" value="<?php echo $id;?>">
@@ -65,7 +66,9 @@ $deleted_item=$_SESSION['items']['deleted'];
             Recover
           </button>
         </form>
+        <?php }?>
         <!-- if it's deleted from completed page -->
+        <?php if($item['deleted_from']=="from_completed"){?>
         <form action="recover.php" method="POST">
           <!-- {$id} -->
           <input hidden name="item_id" value="<?php echo $id;?>">
@@ -74,6 +77,7 @@ $deleted_item=$_SESSION['items']['deleted'];
             Recover
           </button>
         </form>
+        <?php }?>
       </div>
       <!-- <hr > -->
       <div class="flex justify-between px-5 mb-2 text-sm text-gray-600">

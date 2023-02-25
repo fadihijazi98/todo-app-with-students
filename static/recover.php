@@ -3,19 +3,19 @@ session_start();
 $id=$_POST['item_id'];
 $recover_to=$_POST['recover_to'];
 
+$item=$_SESSION['items']['deleted'][$id];
+unset($_SESSION['items']['deleted'][$id]);
+
 if($recover_to=='todo-list'){
     $to="todo";
     $completed_at=null;
-    $item=$_SESSION['items']['deleted'][$id];
-    unset($_SESSION['items']['deleted'][$id]);
+   
 
 
 }
 else{
     $to="completed";
     $completed_at=$_SESSION['items']['deleted'][$id]['completed_at'];
-    $item=$_SESSION['items']['deleted'][$id];
-    unset($_SESSION['items']['deleted'][$id]);
 
 }
 
