@@ -34,9 +34,14 @@ $todoItem = $_SESSION["items"]['todo'];
         <!-- ::if statement start here to show this message once;; -->
         <div class="bg-purple-500 my-8 py-4 font-source-code-pro text-lg text-white text-center">
             <!-- {$redirect_message} -->
+            <?php if(key_exists('message',$_SESSION)){ ?>
+            <?php echo $_SESSION['message'];
+            unset($_SESSION['message']);?>
         </div>
         <!-- ::if statement end here to show this message once;; -->
+        <?php }?>
     </div>
+    
     <!-- to-do item element -->
     <div class="container flex justify-center gap-16">
         <div class="w-80 border-r border-r-2 pr-4 border-purple-500">
@@ -91,7 +96,7 @@ $todoItem = $_SESSION["items"]['todo'];
                     </form>
                     <form action="assign-todo-item-as-deleted.php" method="post">
                         <input hidden name="item_id" value="<?php echo $id; ?>">
-                        <input hidden name="delete_from" value="{todo-items_constant}" />
+                        <input hidden name="delete_from" value="todo_item" />
                         <button type="submit"
                                 class="text-sm bg-red-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-red-500 duration-500">
                             Delete
