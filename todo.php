@@ -28,10 +28,16 @@
     <div>
         <h3 class="text-3xl text-center font-source-code-pro"> Todo items </h3>
         <!-- ::if statement start here to show this message once;; -->
+        <?php if ( key_exists('message', $_SESSION) ) { ?>
         <div class="bg-purple-500 my-8 py-4 font-source-code-pro text-lg text-white text-center">
             <!-- {$redirect_message} -->
+            <?php
+                echo $_SESSION['message'];
+                unset($_SESSION['message']);
+            ?> 
         </div>
         <!-- ::if statement end here to show this message once;; -->
+        <?php } ?>
     </div>
     <!-- to-do item element -->
     <div class="container flex justify-center gap-16">
@@ -85,9 +91,9 @@
                             <?php echo $value['description']?>
                         </p>
                     </form>
-                    <form action="assign-todo-item-as-deleted.php" method="post">
+                    <form action="assign-items-as-deleted.php" method="post">
                         <input hidden name="item_id" value="<?php echo $id; ?>">
-                        <input hidden name="delete_from" value="{$todo_items_constant}" />
+                        <input hidden name="delete_from" value="todo_items" />
                         <button type="submit"
                                 class="text-sm bg-red-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-red-500 duration-500">
                             Delete
