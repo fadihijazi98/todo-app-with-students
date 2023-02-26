@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE HTML PUBLIC>
 <html lang="en">
 <head>
@@ -25,18 +28,30 @@
         <h3 class="text-3xl text-center font-source-code-pro">
             Completed items
         </h3>
+        <?php if(key_exists('message', $_SESSION)){ ?>
+
         <div class="bg-green-500 my-8 py-4 font-source-code-pro text-lg text-white text-center">
             <!-- {$redirect_message} -->
+            <?php
+            echo $_SESSION['message'];
+            unset($_SESSION['message']);    
+            ?>
         </div>
+        <?php } ?>
     </div>
     <!-- completed item element -->
     <?php
-    session_start();
     $completed_items=$_SESSION['items']['completed'];
     ?>
     <div class="container mx-auto">
         <!-- {$id} -->
         <?php 
+            if (empty($completed_items)) { ?>
+                <h3 class="text-2xl text-center font-source-code-pro">
+                    Completed items will be shown here !
+                </h3>
+        <?php
+            } else {
             $index = 1;
             foreach($completed_items as $id => $completed_item){
         ?>
@@ -53,10 +68,10 @@
             </div>
 
             <div class="flex items-center px-4 gap-3">
-                    <form method="" action="" class='my-0'>
+                    <form method="post" action="assign_item_as_uncompleted.php" id="completed-item-<?php echo $id; ?>" class='my-0'>
                             <!-- {$id} -->
                             <input hidden name="item_id" value="<?php echo $id; ?>">
-                            <input type="checkbox" onclick="document.getElementById('completed-item-{$id}').submit()"
+                            <input type="checkbox" onclick="document.getElementById('completed-item-<?php echo $id; ?>').submit()"
                                    checked class='h-6 w-6 bg-white checked:scale-75 transition-all duration-200 peer'/>
                     </form>
                 <p class="py-6 text-lg tracking-wide gap-2 text-green-800">
@@ -65,10 +80,10 @@
                 </p>
             </div>
 
-            <form action="" method="">
+            <form action="deleted_insertion_action.php" method="post">
                 <!-- {$id} -->
                 <input hidden name="item_id" value="<?php echo $id; ?>">
-                <input hidden name="delete_from" value="completed-list" />
+                <input hidden name="deleted_from" value="completed-list" />
                 <button type="submit"
                         class="text-sm bg-red-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-red-500 duration-500">
                     Delete
@@ -84,7 +99,7 @@
                 </p>
             </div>
         </div>
-        <?php } ?>
+        <?php }} ?>
     </div>
 </div>
 </div>

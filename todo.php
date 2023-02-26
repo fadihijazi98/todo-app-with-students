@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE HTML PUBLIC>
 <html lang="en">
 <head>
@@ -23,15 +26,22 @@
     <div class="bg-gray-100 space-y-12 py-10 rounded-2xl">
     <div>
         <h3 class="text-3xl text-center font-source-code-pro"> Todo items </h3>
+        <?php if(key_exists('message', $_SESSION)){ ?>
         <div class="bg-purple-500 my-8 py-4 font-source-code-pro text-lg text-white text-center">
             <!-- {$redirect_message} -->
+            <?php
+            echo $_SESSION['message'];
+            unset($_SESSION['message']);
+            ?>
         </div>
+        <?php } ?>
     </div>
     <!-- to-do item element -->
     <?php
-    session_start();
+    if(key_exists('items', $_SESSION)){
     $todoItems = $_SESSION['items']['todo'];
-    echo session_save_path();
+    }
+    //echo session_save_path();
 ?>
     <div class="container flex justify-center gap-16">
         <div class="w-80 border-r border-r-2 pr-4 border-purple-500">
@@ -58,6 +68,12 @@
         <div>
             <div class="w-80 mb-6">
                 <?php 
+                if (empty($todoItems)) { ?>
+                <h3 class="text-2xl text-center font-source-code-pro">
+                    Todo items will be shown here !
+                </h3>
+        <?php
+            } else {
                 $index=1;
                 foreach($todoItems as $id => $todoItem){ ?>
                 <div class="bg-white max-w-sm mx-auto rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-105 cursor-pointer">
@@ -84,7 +100,7 @@
                             <?php echo $todoItem['description'] ?>
                         </p>
                     </form>
-                    <form action="" method="">
+                    <form action="deleted_insertion_action.php" method="post">
                         <input hidden name="item_id" value="<?php echo $id; ?>">
                         <button type="submit"
                                 class="text-sm bg-red-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-red-500 duration-500">
@@ -100,7 +116,7 @@
                         </p>
                     </div>
                 </div>
-                <?php } ?>
+                <?php }} ?>
             </div>
         </div>
     </div>

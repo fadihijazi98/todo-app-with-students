@@ -6,6 +6,7 @@ $id = generateNextId();
         'description'=>$_POST['description'],
         'created_at'=>date("y-m-d h:i:s")
     ];
+    $_SESSION['message']="The '". $_POST['title']."' item created successfully";
 
 header("Location:todo.php");
 
@@ -14,9 +15,9 @@ function generateNextId(){
         return 1;
     }
     $items=$_SESSION['items'];
-    $todo_items=[0];
-    $completed_items=[0];
-    $deleted_items=[0];
+    $todo_items=[];
+    $completed_items=[];
+    $deleted_items=[];
 
     if(key_exists('todo',$items)){
         $todo_items=array_keys($items['todo']);
@@ -27,11 +28,17 @@ function generateNextId(){
     if(key_exists('deleted',$items)){
         $deleted_items=array_keys($items['deleted']);
     }
-    $max=max(
-        max($todo_items),
-        max($completed_items),
-        max($deleted_items)
-    );
+   $max = 0;
+
+    if (!empty($todo_items)) {
+        $max = max($max, max($todo_items));
+    }
+    if (!empty($completed_items)) {
+        $max = max($max, max($completed_items));
+    }
+    if (!empty($deleted_items)) {
+        $max = max($max, max($deleted_items));
+    }
     return $max+1;
     
 }

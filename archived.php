@@ -1,3 +1,7 @@
+ <?php 
+    session_start();
+    $deleted_items=$_SESSION['items']['deleted'];
+  ?>
 <!DOCTYPE HTML PUBLIC>
 <html lang="en">
 <head>
@@ -25,57 +29,80 @@
     <h3 class="text-3xl text-center font-source-code-pro">
       Archived items
     </h3>
+    <?php if(key_exists('message', $_SESSION)){ ?>
     <div class="bg-red-500 my-8 py-4 font-source-code-pro text-lg text-white text-center">
       <!-- {$session_message} -->
+      <?php
+            
+            echo $_SESSION['message'];
+            unset($_SESSION['message']);
+      ?>
     </div>
+    <?php } ?>
   </div>
   <div class="container mx-auto">
+   
+    <?php
+   if (empty($deleted_items)) { ?>
+                <h3 class="text-2xl text-center font-source-code-pro">
+                    Deleted items will be shown here !
+                </h3>
+        <?php
+            } else {
+    $index=1;
+    foreach($deleted_items as $id => $deleted_item){
+    ?>
     <div class="bg-white my-4 max-w-sm mx-auto rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-105 cursor-pointer">
       <div class="h-20 bg-red-500 flex items-center justify-start gap-3">
         <h1 class="text-white ml-4 border-2 py-2 px-4 rounded-full">
           <!-- {$i} -->
-          1
+          <?php echo $index++; ?>
         </h1>
         <p class="mr-20 text-white text-lg">
           <!-- {$title} -->
-          item title
+          <?php echo $deleted_item['title'] ?>
         </p>
       </div>
 
       <p class="py-6 text-lg tracking-wide px-4 flex items-center gap-2 text-red-800">
         <!-- {$description} -->
-        [DELETED] item description.
+        <?php echo $deleted_item['description'] ?>
       </p>
 
       <div>
         <!-- if it's deleted from to.do page -->
-        <form action="../actions/recover_item.php" method="POST">
+        <?php if($deleted_item['deleted_from'] == 'todo-list' ){ ?>
+        <form action="recoverItems.php" method="POST">
           <!-- {$id} -->
-          <input hidden name="item_id" value="{$id}">
+          <input hidden name="item_id" value="<?php echo $id; ?>">
           <input hidden name="recover_to" value="todo-list" />
           <button type="submit" class="text-sm bg-purple-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-purple-500 duration-500">
             Recover
           </button>
         </form>
+        <?php } ?>
         <!-- if it's deleted from completed page -->
-        <form action="../actions/recover_item.php" method="POST">
+        <?php if($deleted_item['deleted_from'] == 'completed-list'){ ?>
+        <form action="recoverItems.php" method="POST">
           <!-- {$id} -->
-          <input hidden name="item_id" value="{$id}">
+          <input hidden name="item_id" value="<?php echo $id; ?>">
           <input hidden name="recover_to" value="completed-list" />
           <button class="text-sm bg-green-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-green-500 duration-500">
             Recover
           </button>
         </form>
+        <?php } ?>
       </div>
       <!-- <hr > -->
       <div class="flex justify-between px-5 mb-2 text-sm text-gray-600">
         <p>Deleted at</p>
         <p>
           <!-- {$deleted_at} -->
-          3/08/2021
+          <?php echo $deleted_item['deleted_at'] ?>
         </p>
       </div>
     </div>
+    <?php }} ?>
   </div>
 </div>
 
