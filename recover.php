@@ -6,7 +6,7 @@ $id = $_POST['item_id'];
 
 $recover_to=$_POST['recover_to'];
 
-$item= $_SESSION['items']['deleted'][$id];
+$Item= $_SESSION['items']['deleted'][$id];
 unset($_SESSION['items']['deleted'][$id]);
 
 // actual add
