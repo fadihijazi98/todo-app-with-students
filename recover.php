@@ -14,10 +14,10 @@ unset($_SESSION['items']['deleted'][$id]);
 if($recover_to=='completed_items'){
 
     $_SESSION['items']['completed'][$id] = [
-        'title' => $item['title'],
-        'description' => $item['description'],
+        'title' => $Item['title'],
+        'description' => $Item['description'],
         'completed_at' =>   $completed_at,
-        'created_at' => $item['created_at'],
+        'created_at' => $Item['created_at'],
         
     ];
     $_SESSION['message'] = "the '" . $Item['title'] . "' is recovered to completed now.";
@@ -28,9 +28,9 @@ else{
    
 
     $_SESSION['items']['todo'][$id] = [
-        'title' => $item['title'],
-        'description' => $item['description'],
-        'created_at' => $item['created_at'],
+        'title' => $Item['title'],
+        'description' => $Item['description'],
+        'created_at' => $Item['created_at'],
        
     ];
     $_SESSION['message'] = "the '" . $Item['title'] . "' is recovered to todo now.";
@@ -40,4 +40,3 @@ else{
 
 
 
-header("Location:deleted.php");
