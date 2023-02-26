@@ -6,7 +6,6 @@ $completedItems=$_SESSION['items']['completed'];
 
 ?>
 
-
 <!DOCTYPE HTML PUBLIC>
 <html lang="en">
 <head>
@@ -29,11 +28,7 @@ $completedItems=$_SESSION['items']['completed'];
 <body>
 <div id="main" class="min-h-screen bg-gray-200 p-8">
     <!-- ::put the (todo, completed, or archived) content here;; -->
-</div>
-</body>
-</html>
-
-<div class="bg-gray-100 space-y-12 py-10 rounded-2xl">
+    <div class="bg-gray-100 space-y-12 py-10 rounded-2xl">
     <div>
         <h3 class="text-3xl text-center font-source-code-pro">
             Completed items
@@ -41,8 +36,12 @@ $completedItems=$_SESSION['items']['completed'];
         <!-- ::if statement start here to show this message once;; -->
         <div class="bg-green-500 my-8 py-4 font-source-code-pro text-lg text-white text-center">
             <!-- {$redirect_message} -->
+            <?php if(key_exists('message',$_SESSION)){ ?>
+            <?php echo $_SESSION['message'];
+            unset($_SESSION['message']);?>
         </div>
         <!-- ::if statement end here to show this message once;; -->
+        <?php } ?>
     </div>
     <!-- completed item element -->
     <div class="container mx-auto">
@@ -63,7 +62,7 @@ $completedItems=$_SESSION['items']['completed'];
             </div>
 
             <div class="flex items-center px-4 gap-3">
-                <form method="::path of php file to call with POST method to assign items.completed as items.todo (un-completed anymore);;" action="post" class='my-0'>
+                <form method="post" action="uncompleted.php" id="completed-item-<?php echo $id; ?>" class='my-0'>
                     <input hidden name="item_id" value="<?php echo $id; ?>">
                     <input type="checkbox" onclick="document.getElementById('completed-item-<?php echo $id; ?>').submit()"
                            checked class='h-6 w-6 bg-white checked:scale-75 transition-all duration-200 peer'/>
@@ -74,7 +73,7 @@ $completedItems=$_SESSION['items']['completed'];
                 </p>
             </div>
 
-            <form action="assign-todo-item-as-deleted" method="post">
+            <form action="assign-todo-item-as-deleted.php" method="post">
                 <input hidden name="item_id" value="<?php echo $id; ?>">
                 <input hidden name="delete_from" value="completed_item" />
                 <button type="submit"
@@ -95,3 +94,7 @@ $completedItems=$_SESSION['items']['completed'];
         <?php } ?>
     </div>
 </div>
+</div>
+</body>
+</html>
+
