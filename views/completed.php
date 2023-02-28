@@ -1,29 +1,10 @@
 <?php
-
+ob_start();
 session_start();
 $completed_items = $_SESSION['items']['completed'];
 ?>
 
-<!DOCTYPE HTML PUBLIC>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;400;700&display=swap"
-          rel="stylesheet">
-    <title>
-    </title>
-    <style>
-        .font-source-code-pro {
-            font-family: 'Source Code Pro', monospace;
-        }
-    </style>
-</head>
-<body>
+
 <div id="main" class="min-h-screen bg-gray-200 p-8">
     <!-- content -->
     <div class="bg-gray-100 space-y-12 py-10 rounded-2xl">
@@ -31,9 +12,14 @@ $completed_items = $_SESSION['items']['completed'];
         <h3 class="text-3xl text-center font-source-code-pro">
             Completed items
         </h3>
+        <?php if(key_exists('message',$_SESSION)) { ?>
         <div class="bg-green-500 my-8 py-4 font-source-code-pro text-lg text-white text-center">
-            <!-- {$redirect_message} -->
+        <?php 
+            echo $_SESSION['message'];
+            unset($_SESSION['message']);
+            ?>
         </div>
+        <?php } ?>
     </div>
     <!-- completed item element -->
     <?php $index=1;
@@ -52,7 +38,7 @@ $completed_items = $_SESSION['items']['completed'];
             </div>
 
             <div class="flex items-center px-4 gap-3">
-                    <form method="post" action="return_complete_item_to_todo.php" id="completed-item-<?php echo $id;?>" class='my-0'>
+                    <form method="post" action="../actions/return_complete_item_to_todo_action.php" id="completed-item-<?php echo $id;?>" class='my-0'>
                     
                             <input hidden name="item_id" value="<?php echo $id;?>">
                             <input type="checkbox" onclick="document.getElementById('completed-item-<?php echo $id;?>').submit()"
@@ -64,7 +50,7 @@ $completed_items = $_SESSION['items']['completed'];
                 </p>
             </div>
 
-            <form action="assign_item_as_deleted.php" method="POST">
+            <form action="../actions/assign_item_as_deleted_action.php" method="POST">
             
                 <input hidden name="item_id" value="<?php echo $id;?>">
                 <input hidden name="delete_from" value="completed-item" />
@@ -84,6 +70,8 @@ $completed_items = $_SESSION['items']['completed'];
         <?php };?>
     </div>
 </div>
-</div>
-</body>
-</html>
+<?php 
+$content=ob_get_contents();
+ob_get_clean();
+include '../static/templete.php';
+?>

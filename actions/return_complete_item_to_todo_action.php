@@ -12,5 +12,6 @@ $_SESSION['items']['todo'][$id]=
     "created_at"=>$todoItem['created_at']
 ];
 unset($_SESSION['items']['completed'][$id]);
+$_SESSION['message']="The '".$todoItem['title']."' item uncompleted";
 
-header("Location: completed.php");
+header("Location: ../views/todo.php");

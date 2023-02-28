@@ -28,7 +28,7 @@ $_SESSION['items']['deleted'][$id]=[
     "deleted_at"=>date("Y-M-d H:i:s"),
     "deleted_from"=>$from
 ];
-if($deleted_from=='todo_item')
-header("Location:todo.php");
-else
-header("Location:completed.php");
+
+$_SESSION['message']="The '".$item['title']."' item successfuly deleted";
+
+header("Location:../views/deleted.php");

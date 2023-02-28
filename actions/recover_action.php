@@ -24,8 +24,13 @@ $_SESSION['items'][$to][$id]=[
     "completed_at"=>$completed_at
 ];
 
-if($deleted_from=='from_todo')
-header("Location:todo.php");
-else
-header("Location:completed.php");
+if($deleted_from=='from_todo'){
+$_SESSION['message']="The '".$item['title']."' item  uncompleted";
+header("Location:../views/todo.php");
+}
+else{
+$_SESSION['message']="The '".$item['title']."' item successfuly completed";
+header("Location:../views/completed.php");
+
+}
 ?>

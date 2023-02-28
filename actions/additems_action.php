@@ -8,7 +8,8 @@ $_SESSION['items']['todo'][$generated_id]=
     "description"=>$_POST['description'],
     "created_at"=>date("Y-M-d h:i:s")
 ];
-header("Location:todo.php");
+$_SESSION['message']="The '".$_POST['title']."' item successfuly created";
+header("Location:../views/todo.php");
 
 function generated_id(){
     if(! key_exists('items',$_SESSION)){

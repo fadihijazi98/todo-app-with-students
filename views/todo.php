@@ -1,43 +1,29 @@
 <?php
+ob_start();
 session_start();
  $todo_items = $_SESSION['items']['todo'];
 
 ?>
 
-<!DOCTYPE HTML PUBLIC>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;400;700&display=swap"
-          rel="stylesheet">
-    <title>
-    </title>
-    <style>
-        .font-source-code-pro {
-            font-family: 'Source Code Pro', monospace;
-        }
-    </style>
-</head>
-<body>
-<div id="main" class="min-h-screen bg-gray-200 p-8">
+
 <div class="bg-gray-100 space-y-12 py-10 rounded-2xl">
     <div>
         <h3 class="text-3xl text-center font-source-code-pro"> Todo items </h3>
         <!-- ::if statement start here to show this message once;; -->
+        <?php if(key_exists('message',$_SESSION)) { ?>
         <div class="bg-purple-500 my-8 py-4 font-source-code-pro text-lg text-white text-center">
-            <!-- {$redirect_message} -->
+            <?php 
+            echo $_SESSION['message'];
+            unset($_SESSION['message']);
+            ?>
         </div>
         <!-- ::if statement end here to show this message once;; -->
+        <?php } ?>
     </div>
     <!-- to-do item element -->
     <div class="container flex justify-center gap-16">
         <div class="w-80 border-r border-r-2 pr-4 border-purple-500">
-            <form action="additems.php" method="post">
+            <form action="../actions/additems_action.php" method="post">
                 <div class="mb-6">
                     <label for="title"
                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Title</label>
@@ -70,7 +56,7 @@ session_start();
                         <?php echo $todoItem['title'] ;?>
                         </p>
                     </div>
-                    <form action="assign_todo_item_as_completed.php" method="post" id="todo-item-<?php echo $id;?>"
+                    <form action="../actions/assign_todo_item_as_completed_action.php" method="post" id="todo-item-<?php echo $id;?>"
                           class="my-0 flex items-center px-4 gap-3">
                                 <span class=''>
                                   <input hidden name="item_id" value="<?php echo $id;?>">
@@ -103,6 +89,8 @@ session_start();
     </div>
 </div>
 
-</div>
-</body>
-</html>
+<?php 
+$content=ob_get_contents();
+ob_get_clean();
+include '../static/templete.php';
+?>

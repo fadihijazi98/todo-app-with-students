@@ -1,29 +1,10 @@
 <?php 
-
+ob_start();
 session_start();
 $deleted_item=$_SESSION['items']['deleted'];
 
 ?>
-<!DOCTYPE HTML PUBLIC>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;400;700&display=swap"
-          rel="stylesheet">
-    <title>
-    </title>
-    <style>
-        .font-source-code-pro {
-            font-family: 'Source Code Pro', monospace;
-        }
-    </style>
-</head>
-<body>
+
 <div id="main" class="min-h-screen bg-gray-200 p-8">
     <!-- content -->
     <div class="bg-gray-100 space-y-12 py-10 rounded-2xl">
@@ -31,9 +12,14 @@ $deleted_item=$_SESSION['items']['deleted'];
     <h3 class="text-3xl text-center font-source-code-pro">
       Archived items
     </h3>
+    <?php if(key_exists('message',$_SESSION)) { ?>
     <div class="bg-red-500 my-8 py-4 font-source-code-pro text-lg text-white text-center">
-      <!-- {$session_message} -->
+    <?php 
+            echo $_SESSION['message'];
+            unset($_SESSION['message']);
+            ?>
     </div>
+    <?php } ?>
   </div>
   <div class="container mx-auto">
     <?php
@@ -58,7 +44,7 @@ $deleted_item=$_SESSION['items']['deleted'];
       <div>
         <!-- if it's deleted from to.do page -->
         <?php if($item['deleted_from']=="from_todo"){?>
-        <form action="recover.php" method="POST">
+        <form action="../actions/recover_action.php" method="POST">
           <!-- {$id} -->
           <input hidden name="item_id" value="<?php echo $id;?>">
           <input hidden name="recover_to" value="todo-list" />
@@ -69,7 +55,7 @@ $deleted_item=$_SESSION['items']['deleted'];
         <?php }?>
         <!-- if it's deleted from completed page -->
         <?php if($item['deleted_from']=="from_completed"){?>
-        <form action="recover.php" method="POST">
+        <form action="../actions/recover_action.php" method="POST">
           <!-- {$id} -->
           <input hidden name="item_id" value="<?php echo $id;?>">
           <input hidden name="recover_to" value="completed-list" />
@@ -92,6 +78,8 @@ $deleted_item=$_SESSION['items']['deleted'];
 
 </div>
 
-</div>
-</body>
-</html>
+<?php 
+$content=ob_get_contents();
+ob_get_clean();
+include '../static/templete.php';
+?>
