@@ -6,6 +6,7 @@ $_SESSION['items']['todo'][$generateId]=[
     'description' => $_POST['description'],
     'created_at' => date("Y-m-d h:i:s" )
 ];
+$_SESSION['message']="item '". $_POST['title']."' is sucessfully created";
 header("Location:todo.php");
 
 function generateId(){
@@ -14,7 +15,7 @@ function generateId(){
     }
     $items=$_SESSION["items"];
 
-    $todoItems=[];
+    $todoItems=[0];
     $completedItems=[0];
     $deletedItems=[0];
 
@@ -28,6 +29,5 @@ function generateId(){
     $max_todo= max($todoItems);
     $max_completed= max($completedItems);
     $max_deleted= max($deletedItems);
-
     return max($max_completed,$max_deleted,$max_todo) +1;
 }

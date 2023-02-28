@@ -9,6 +9,8 @@ $_SESSION['items']['completed'][$id] = [
     'completed_at' => date("Y-m-d h:i:s")
 ];
 unset($_SESSION['items']['todo'][$id]);
+$_SESSION['message']="item '".  $todoitem['title']."' is sucessfully completed";
+
 header("Location:completed.php");
 ?>
 

@@ -31,10 +31,16 @@ $deleteItems=$_SESSION["items"]["deleted"];
                 Archived items
             </h3>
             <!-- ::if statement start here to show this message once;; -->
+            <?php if (key_exists('message' ,$_SESSION)){ ?>
             <div class="bg-red-500 my-8 py-4 font-source-code-pro text-lg text-white text-center">
                 <!-- {$session_message} -->
+                <?php
+                echo $_SESSION['message'];
+                unset($_SESSION['message']);
+                ?>
             </div>
             <!-- ::if statement end here to show this message once;; -->
+            <?php }?>
         </div>
         <div class="container mx-auto">
             <!-- ::loop of items.deleted should start here;; -->
@@ -61,10 +67,10 @@ $deleteItems=$_SESSION["items"]["deleted"];
                 <div>
                     <!-- ::if the items.deleted `deleted_from` is todo;; -->
                     <?php if($deleteItem['deleted_from']=='todo_item'){ ?>
-                    <form action="::path of php file to call with POST method to recover items.deleted to items.todo;;" method="POST">
+                    <form action="recover-item.php" method="POST">
                         <!-- {$id} -->
-                        <input hidden name="item_id" value="{$id}">
-                        <input hidden name="recover_to" value="{$todo_items_constant}" />
+                        <input hidden name="item_id" value="<?php echo $id; ?>">
+                        <input hidden name="recover_to" value="todo_item" />
                         <button type="submit" class="text-sm bg-purple-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-purple-500 duration-500">
                             Recover
                         </button>
@@ -73,9 +79,9 @@ $deleteItems=$_SESSION["items"]["deleted"];
 
                     <!-- ::if the items.deleted `deleted_from` is completed;; -->
                     <?php if($deleteItem['deleted_from']=='completed_item'){ ?>
-                    <form action="::path of php file to call with POST method to recover items.deleted to items.completed;;" method="POST">
+                    <form action="recover-item.php" method="POST">
                         <!-- {$id} -->
-                        <input hidden name="item_id" value="{$id}">
+                        <input hidden name="item_id" value="<?php echo $id; ?>">
                         <input hidden name="recover_to" value="completed_item" />
                         <button class="text-sm bg-green-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-green-500 duration-500">
                             Recover

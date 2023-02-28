@@ -21,4 +21,6 @@ $_SESSION['items']['deleted'][$id] = [
     'deleted_at' => date("Y-m-d h:i:s"),
     "deleted_from" => $delete_from
 ];
+$_SESSION['message']="item '".  $item['title']."' is deleted";
+
 header("Location:deleted.php");
