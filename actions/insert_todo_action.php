@@ -12,7 +12,7 @@ $_SESSION['items']['todo'][$generated_id] = [
 
 $_SESSION['message'] = "The `" . $_POST['title'] . "` item Successfully Created.";
 
-header('Location:todo.php');
+header('Location:../views/todo.php');
 
 function generateId(){
 

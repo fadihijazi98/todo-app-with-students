@@ -17,7 +17,7 @@ if($recover_to == 'todo_items'){
     ];
     
     $_SESSION['message'] = "The `" . $deletItems['title'] . "` is Recovered to todo Now.";
-    header("Location:todo.php"); 
+    header("Location:../views/todo.php"); 
 
 }else {
 
@@ -29,7 +29,7 @@ if($recover_to == 'todo_items'){
     ];
 
     $_SESSION['message'] = "The `" . $deletItems['title'] . "` is Recovered to Completed Now.";
-    header("Location:completed.php"); 
+    header("Location:../views/completed.php"); 
 
 }
 

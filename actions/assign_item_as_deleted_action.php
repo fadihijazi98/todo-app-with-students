@@ -31,6 +31,6 @@ $_SESSION['items']['deleted'][$id] = [
 
 $_SESSION['message'] = "The `" . $item['title'] . "` is Deleted now.";
 
-header("Location:archived.php");
+header("Location:../views/archived.php");
 
 ?>
