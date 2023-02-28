@@ -11,7 +11,7 @@ $_SESSION['items']['todo'][$generated_id] = [
 ];
 
 
-header("Location:todo.php");
+header("Location:../views/todo.php");
 
 
 function generateId()

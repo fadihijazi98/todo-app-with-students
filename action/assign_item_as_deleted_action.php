@@ -15,7 +15,7 @@ if ($deleted_from=="todo")
         "deleted_from"=>$deleted_from
 ];
     unset($_SESSION["items"]["todo"]["$id"]);
-    header("Location:todo.php");
+    header("Location:../views/todo.php");
 
 }else
 {
@@ -31,7 +31,7 @@ if ($deleted_from=="todo")
     ];
 
     unset($_SESSION["items"]["completed"]["$id"]);
-    header("Location:completed.php");
+    header("Location:../views/completed.php");
 
 
 

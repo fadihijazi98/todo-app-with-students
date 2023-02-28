@@ -27,5 +27,5 @@ if ($recover_to=="completed"){
 
 
 }
-header("Location:delete.php");
+header("Location:../views/delete.php");
 

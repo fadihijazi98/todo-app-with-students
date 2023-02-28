@@ -17,4 +17,4 @@ $_SESSION['items']['completed'][$id] = [
 
 unset($_SESSION['items']['todo'][$id]);
 
-header("Location:todo.php");
+header("Location:../views/todo.php");

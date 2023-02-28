@@ -11,4 +11,4 @@ $_SESSION["items"]["todo"][$id]=[
     "created_at"=>$item["created_at"]
 ];
 
-header("Location:completed.php");
+header("Location:../views/completed.php");
