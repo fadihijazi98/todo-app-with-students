@@ -1,32 +1,12 @@
 <?php
 
+ob_start();
 session_start();
 $todoItems = $_SESSION['items']['todo'];
 
 ?>
-<!DOCTYPE HTML PUBLIC>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;400;700&display=swap"
-          rel="stylesheet">
-    <title>
-    </title>
-    <style>
-        .font-source-code-pro {
-            font-family: 'Source Code Pro', monospace;
-        }
-    </style>
-</head>
-<body>
-<div id="main" class="min-h-screen bg-gray-200 p-8">
-    <!-- ::put the (todo, completed, or archived) content here;; -->
-    <div class="bg-gray-100 space-y-12 py-10 rounded-2xl">
+
+<div class="bg-gray-100 space-y-12 py-10 rounded-2xl">
         <div>
             <h3 class="text-3xl text-center font-source-code-pro"> Todo items </h3>
             <!-- ::if statement start here to show this message once;; -->
@@ -44,7 +24,7 @@ $todoItems = $_SESSION['items']['todo'];
         <!-- to-do item element -->
         <div class="container flex justify-center gap-16">
             <div class="w-80 border-r border-r-2 pr-4 border-purple-500">
-                <form action="insert_todo_action.php"
+                <form action="../actions/insert_todo_action.php"
                       method="post">
                     <div class="mb-6">
                         <label for="title"
@@ -82,7 +62,7 @@ $todoItems = $_SESSION['items']['todo'];
                                 <?php echo $todoItem['title']; ?>
                             </p>
                         </div>
-                        <form action="assign_todo_item_as_completed.php"
+                        <form action="../actions/assign_todo_item_as_completed_action.php"
                               method="post" id="todo-item-<?php echo $id; ?>"
                               class="my-0 flex items-center px-4 gap-3">
                                 <span class=''>
@@ -96,7 +76,7 @@ $todoItems = $_SESSION['items']['todo'];
                                 <?php echo $todoItem['description']; ?>
                             </p>
                         </form>
-                        <form action="assign_item_as_deleted.php" method="post">
+                        <form action="../actions/assign_item_as_deleted_action.php" method="post">
                             <input hidden name="item_id" value="<?php echo $id; ?>">
                             <input hidden name="delete_from" value="todo_item"/>
                             <button type="submit"
@@ -119,6 +99,8 @@ $todoItems = $_SESSION['items']['todo'];
         </div>
     </div>
 
-</div>
-</body>
-</html>
+<?php
+$content = ob_get_contents();
+ob_get_clean();
+
+include 'template.php';
