@@ -16,7 +16,7 @@ if($recover_to=='completed_item'){
         'completed_at'=>$deletedItem['completed_at'],
         'created_at' => $deletedItem['created_at']
     ];
-    header("Location:completed.php");
+    header("Location:../views/completed.php");
 
 }else{
 
@@ -25,6 +25,6 @@ if($recover_to=='completed_item'){
         'description' =>$deletedItem['description'],
         'created_at' => $deletedItem['created_at']
     ];
-header("Location:todo.php");
+header("Location:../views/todo.php");
 }
 ?>

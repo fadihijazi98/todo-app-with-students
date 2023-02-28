@@ -6,15 +6,14 @@ $id = $_POST['item_id'];
 
 
 $deleted_from=$_POST['delete_from'];
-$_SESSION["message"] = "The '{$item["title"]}' is deleted now";
 
 
 if($deleted_from=="completed_item"){
 
     $Item=$_SESSION['items']['completed'][$id];
-    $completed_at= $completedItem['completed_at'];
+    $completed_at= $Item['completed_at'];
     unset( $_SESSION['items']['completed'][$id] );
-    $_SESSION["message"] = "The '{$item["title"]}' is deleted now";
+    $_SESSION["message"] = "The '{$Item["title"]}' is deleted now";
 
 }else {
 
@@ -22,7 +21,7 @@ if($deleted_from=="completed_item"){
     $completed_at = null;
 
     unset($_SESSION['items']['todo'][$id]);
-    $_SESSION["message"] = "The '{$item["title"]}' is deleted now";
+    $_SESSION["message"] = "The '{$Item["title"]}' is deleted now";
 
 }
 
@@ -35,5 +34,5 @@ $_SESSION['items']['deleted'][$id]=[
     'deleted_at' => date("y-m-d h:m:s")
 ];
 
-header("Location:archived.php");
+header("Location:../views/archived.php");
 ?>

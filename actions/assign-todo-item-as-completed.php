@@ -14,5 +14,5 @@ $_SESSION['items']['completed'][$id]=[
 ];
 unset( $_SESSION['items']['todo'][$id] );
 $_SESSION["message"] = "The '{$todoItem["title"]}' assigned as completed ";
-header("Location:completed.php");
+header("Location:../views/completed.php");
 ?>
