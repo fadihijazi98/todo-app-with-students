@@ -17,7 +17,7 @@ if($recover_to == "todo_item")
         "description"=>$item["description"],
         "created_at"=>$item["created_at"]
     ];
-    header("Location:todo.php");
+    header("Location:../views/todo.php");
 }
 else
 {
@@ -27,5 +27,5 @@ else
         "created_at"=>$item["created_at"],
         "completed_at"=>$item["completed_at"]
     ];
-    header("Location:completed.php");
+    header("Location:../views/completed.php");
 }

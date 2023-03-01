@@ -16,7 +16,7 @@ $_SESSION["message"] = "The '{$completedItem["title"]}' is uncompleted now";
 
 unset($_SESSION["items"]["completed"][$id]);
 
-header("Location:todo.php");
+header("Location:../views/todo.php");
 
 
 

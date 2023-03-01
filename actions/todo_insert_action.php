@@ -15,7 +15,7 @@ $_SESSION["items"]["todo"][$generated_ID]=[
 
 $_SESSION["message"] = "The '{$_SESSION["items"]["todo"][$generated_ID]["title"]}' is created successfully ^^";
 
-header("Location:todo.php");
+header("Location:../views/todo.php");
 
 function generateID()
 {

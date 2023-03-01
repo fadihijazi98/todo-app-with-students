@@ -33,4 +33,4 @@ $_SESSION["items"]["deleted"][$id]=[
     "deleted_from"=>$deleted_from
 
 ];
-header("Location:deleted.php");
+header("Location:../views/deleted.php");
