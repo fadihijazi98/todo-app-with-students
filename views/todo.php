@@ -68,7 +68,7 @@ session_start();
                         <?php echo $todoItem["description"];?>
                         </p>
                     </form>
-                    <form action="assign_item_as_deleted.php" method="post">
+                    <form action="../actions/assign_item_as_deleted_action.php" method="post">
                         <input hidden name="item_id" value="<?php echo $id;?>">
                         <input hidden name="delete_from" value="todo_item" />
                         <button type="submit"
