@@ -11,7 +11,7 @@ $_SESSION['items']['todo'][$generated_id] = [
 ];
 
 $_SESSION['message'] = "the '" . $_POST['title'] . "' item successfully created.";
-header("Location:todo.php");
+header("Location:../views/todo.php");
 
 
 function generateId()

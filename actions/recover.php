@@ -21,7 +21,7 @@ if($recover_to=='completed_items'){
         
     ];
     $_SESSION['message'] = "the '" . $Item['title'] . "' is recovered to completed now.";
-    header("Location:completed.php");
+    header("Location:../views/completed.php");
     
 }
 else{
@@ -34,7 +34,7 @@ else{
        
     ];
     $_SESSION['message'] = "the '" . $Item['title'] . "' is recovered to todo now.";
-    header("Location:todo.php");
+    header("Location:../views/todo.php");
     
 }
 

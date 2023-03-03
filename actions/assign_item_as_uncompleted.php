@@ -14,4 +14,4 @@ $_SESSION['items']['todo'][$id] = [
 ];
 
 $_SESSION['message'] = "the '" .$completedItem['title'] . "' isn't completed any more.";
-header('Location:todo.php');
+header('Location:../views/todo.php');
