@@ -40,6 +40,7 @@ $completedItems = $_SESSION['items']['completed'];
                 ?>
             </div>
             <!-- ::if statement end here to show this message once;; -->
+            <?php } ?>
         </div>
         <!-- completed item element -->
         <div class="container mx-auto">
