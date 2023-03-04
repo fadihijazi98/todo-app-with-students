@@ -2,6 +2,8 @@
 
 session_start();
 
+include '../helper/RedirectHelper.php';
+
 $id = $_POST['item_id'];
 
 $item_c = $_SESSION['items']['completed'][$id];
@@ -15,6 +17,6 @@ $_SESSION['items']['todo'][$id] = [
 
 $_SESSION['message'] = "The `" .$item_c['title'] . "` isn't Completed any more.";
 
-header("Location:../views/todo.php"); 
+RedirectHelper::redirectToPreviousPage();
 
 ?>

@@ -2,13 +2,18 @@
 
 session_start();
 
+
+include '../helper/GenertorHelper.php';
+include '../helper/RedirectHelper.php';
+include '../constants/ItemTypes.php';
+
+
 $id = $_POST['item_id'];
 $deletedFrom = $_POST['delete_from'];
 
-if($deletedFrom == 'completed_items'){
+if($deletedFrom == ItemTypes::COMPLETED){
 
     $item = $_SESSION['items']['completed'][$id];
-    $completed_at = $item['completed_at'];
     unset($_SESSION['items']['completed'][$id]);
 
 }else{
@@ -20,17 +25,11 @@ if($deletedFrom == 'completed_items'){
 }
 
 
-$_SESSION['items']['deleted'][$id] = [
-    'title' => $item['title'],
-    'description' => $item['description'],
-    'created_at' => $item['created_at'],
-    'deleted_at' => date("Y-m-d H:i:s"),
-    'comleted_at' => $completed_at,
-    'deleted_from' => $deletedFrom
-];
+$_SESSION['items']['deleted'][$id] =  $item;
+$_SESSION['items']['deleted'][$id]['deleted_at'] =  GeneratorHelper::generateCurrentDate();
+$_SESSION['items']['deleted'][$id]['deleted_from'] =  $deletedFrom;
 
 $_SESSION['message'] = "The `" . $item['title'] . "` is Deleted now.";
 
-header("Location:../views/archived.php");
-
+RedirectHelper::redirectToPreviousPage();
 ?>

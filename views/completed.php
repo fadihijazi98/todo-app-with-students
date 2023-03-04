@@ -1,7 +1,8 @@
 <?php
-    ob_start();
 
-    session_start();
+    include '../utils/init_including_templste_util.php';
+    include '../constants/ItemTypes.php';
+
     $completedItems = $_SESSION['items']['completed'];
 ?>
 
@@ -53,7 +54,7 @@
 
             <form action="../actions/assign_item_as_deleted_action.php" method="POST">
                 <input hidden name="item_id" value="<?php echo $id; ?>">
-                <input hidden name="delete_from" value="completed_items" />
+                <input hidden name="delete_from" value="<?php echo ItemTypes::COMPLETED; ?>" />
                 <button type="submit"
                         class="text-sm bg-red-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-red-500 duration-500">
                     Delete
@@ -75,9 +76,6 @@
 
 <?php
 
-    $content = ob_get_contents();
-    ob_get_clean();
-
-    include 'template.php';
+    include '../utils/render_templste_util.php';
 
 ?>

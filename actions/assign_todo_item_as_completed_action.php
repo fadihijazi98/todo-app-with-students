@@ -2,21 +2,21 @@
 
 session_start();
 
+include '../helper/GenertorHelper.php';
+include '../helper/RedirectHelper.php';
+
 $id = $_POST['item_id'];
 
 $todoItem = $_SESSION['items']['todo'][$id];
 
-$_SESSION['items']['completed'][$id] = [
-    'title' => $todoItem['title'],
-    'description' => $todoItem['description'],
-    'created_at' => $todoItem['created_at'],
-    'completed_at' => date("Y-m-d H:i:s")
-];
+$_SESSION['items']['completed'][$id] = $todoItem;
+$_SESSION['items']['completed'][$id]['completed_at'] = GeneratorHelper::generateCurrentDate();
+
 
 unset($_SESSION['items']['todo'][$id]);
 
 $_SESSION['message'] = "The `" . $todoItem['title'] . "` assigned as Completed.";
 
-header("Location:../views/completed.php");
+RedirectHelper::redirectToPreviousPage();
 
 ?>
