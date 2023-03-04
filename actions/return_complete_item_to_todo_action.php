@@ -1,17 +1,16 @@
 <?php
 
 session_start();
+include "../Constents/Item.php";
+
 $id=$_POST['item_id'];
 
 $todoItem=$_SESSION['items']['completed'][$id];
+unset($todoItem['completed_at']);
+$_SESSION['items']['todo'][$id]=$todoItem;
 
-$_SESSION['items']['todo'][$id]=
-[
-    "title"=>$todoItem['title'],
-    "description"=>$todoItem['description'],
-    "created_at"=>$todoItem['created_at']
-];
 unset($_SESSION['items']['completed'][$id]);
 $_SESSION['message']="The '".$todoItem['title']."' item uncompleted";
 
-header("Location: ../views/todo.php");
+include "../helpers/RedirectHelper.php";
+RedirectHelper::redirectToPreviousPage();

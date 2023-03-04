@@ -1,6 +1,6 @@
 <?php 
-ob_start();
-session_start();
+include "../Constents/Item.php";
+include "../uitls/init_including_templete_uitl.php";
 $deleted_item=$_SESSION['items']['deleted'];
 
 ?>
@@ -43,22 +43,22 @@ $deleted_item=$_SESSION['items']['deleted'];
 
       <div>
         <!-- if it's deleted from to.do page -->
-        <?php if($item['deleted_from']=="from_todo"){?>
+        <?php if($item['deleted_from']==Item::TODO){?>
         <form action="../actions/recover_action.php" method="POST">
           <!-- {$id} -->
           <input hidden name="item_id" value="<?php echo $id;?>">
-          <input hidden name="recover_to" value="todo-list" />
+          <input hidden name="recover_to" value="<?php echo Item::TODO;?>" />
           <button type="submit" class="text-sm bg-purple-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-purple-500 duration-500">
             Recover
           </button>
         </form>
         <?php }?>
         <!-- if it's deleted from completed page -->
-        <?php if($item['deleted_from']=="from_completed"){?>
+        <?php if($item['deleted_from']== Item::COMPLETED){?>
         <form action="../actions/recover_action.php" method="POST">
           <!-- {$id} -->
           <input hidden name="item_id" value="<?php echo $id;?>">
-          <input hidden name="recover_to" value="completed-list" />
+          <input hidden name="recover_to" value="<?php echo Item::COMPLETED;?>" />
           <button class="text-sm bg-green-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-green-500 duration-500">
             Recover
           </button>
@@ -79,7 +79,5 @@ $deleted_item=$_SESSION['items']['deleted'];
 </div>
 
 <?php 
-$content=ob_get_contents();
-ob_get_clean();
-include '../static/templete.php';
+include "../uitls/render_templete_uitl.php";
 ?>

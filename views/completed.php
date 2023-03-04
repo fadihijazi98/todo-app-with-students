@@ -1,6 +1,6 @@
 <?php
-ob_start();
-session_start();
+include "../Constents/Item.php";
+include "../uitls/init_including_templete_uitl.php";
 $completed_items = $_SESSION['items']['completed'];
 ?>
 
@@ -53,7 +53,7 @@ $completed_items = $_SESSION['items']['completed'];
             <form action="../actions/assign_item_as_deleted_action.php" method="POST">
             
                 <input hidden name="item_id" value="<?php echo $id;?>">
-                <input hidden name="delete_from" value="completed-item" />
+                <input hidden name="delete_from" value="<?php echo Item::COMPLETED;?>" />
                 <button type="submit"
                         class="text-sm bg-red-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-red-500 duration-500">
                     Delete
@@ -71,7 +71,5 @@ $completed_items = $_SESSION['items']['completed'];
     </div>
 </div>
 <?php 
-$content=ob_get_contents();
-ob_get_clean();
-include '../static/templete.php';
+include "../uitls/render_templete_uitl.php";
 ?>
