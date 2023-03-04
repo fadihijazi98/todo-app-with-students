@@ -1,6 +1,6 @@
 <?php
-ob_start();
-session_start();
+include '../utils/init_including_template_util.php';
+include '../constants/ItemTypes.php';
 $completedItems = $_SESSION['items']['completed'];
 ?>
 
@@ -53,7 +53,7 @@ $completedItems = $_SESSION['items']['completed'];
 
                 <form action="../actions/assign_todo_item_as_deleted.php" method="post">
                     <input hidden name="item_id" value="<?php echo $id; ?>">
-                    <input hidden name="delete_from" value="completed_items" />
+                    <input hidden name="delete_from" value="<?php echo ItemTypes::COMPLETED; ?>" />
                     <button type="submit"
                             class="text-sm bg-red-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-red-500 duration-500">
                         Delete
@@ -73,7 +73,4 @@ $completedItems = $_SESSION['items']['completed'];
         </div>
     </div>
     <?php
-$content = ob_get_contents();
-ob_clean();
-
-include 'template.php';
+include '../utils/render_template_util.php';

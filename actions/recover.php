@@ -1,42 +1,30 @@
 <?php
 
+
 session_start();
 
+include '../helpers/RedirectHelper.php';
 $id = $_POST['item_id'];
 
 $recover_to=$_POST['recover_to'];
 
-$Item= $_SESSION['items']['deleted'][$id];
+$item= $_SESSION['items']['deleted'][$id];
 unset($_SESSION['items']['deleted'][$id]);
+unset($item['deleted_from']);
+unset($item['deleted_at']);
 
 // actual add
+$targetKey = "completed";
 
-if($recover_to=='completed_items'){
+if ($recover_to == "todo_item") {
 
-    $_SESSION['items']['completed'][$id] = [
-        'title' => $Item['title'],
-        'description' => $Item['description'],
-        'completed_at' =>   $completed_at,
-        'created_at' => $Item['created_at'],
-        
-    ];
-    $_SESSION['message'] = "the '" . $Item['title'] . "' is recovered to completed now.";
-    header("Location:../views/completed.php");
-    
-}
-else{
-   
-
-    $_SESSION['items']['todo'][$id] = [
-        'title' => $Item['title'],
-        'description' => $Item['description'],
-        'created_at' => $Item['created_at'],
-       
-    ];
-    $_SESSION['message'] = "the '" . $Item['title'] . "' is recovered to todo now.";
-    header("Location:../views/todo.php");
-    
+    unset($item['completed_at']);
+    $targetKey = "todo";
 }
 
 
+$_SESSION['items'][$targetKey][$id] = $item;
+$_SESSION['message'] = "the '" . $item['title'] . "' is recovered now.";
+
+RedirectHelper::redirectToPreviousPage();
 
