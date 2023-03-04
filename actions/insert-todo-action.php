@@ -7,7 +7,7 @@ $_SESSION['items']['todo'][$generateId]=[
     'created_at' => date("Y-m-d h:i:s" )
 ];
 $_SESSION['message']="item '". $_POST['title']."' is sucessfully created";
-header("Location:todo.php");
+header("Location:../views/todo.php");
 
 function generateId(){
     if( ! key_exists('items', $_SESSION)){

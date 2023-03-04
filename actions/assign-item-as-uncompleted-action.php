@@ -9,4 +9,4 @@ $_SESSION['items']['todo'][$id]=[
     'created_at'=>$completedItem['created_at']
 ];
 $_SESSION['message']="item '".  $completedItem['title']."' is not completed any more";
-header("Location:todo.php");
+header("Location:../views/todo.php");

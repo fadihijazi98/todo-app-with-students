@@ -13,7 +13,7 @@ if ($recover_to=="completed_item") {
     'completed_at'=>$deletedItem['completed_at']
 ];
     $_SESSION['message'] = "the '" . $deletedItem['title'] . "' is recovered to completed";
-header("Location:completed.php");
+header("Location:../views/completed.php");
 }
 else{
     $_SESSION['items']['todo'][$id]=[
@@ -22,6 +22,6 @@ else{
         'created_at'=>$deletedItem['created_at'],
     ];
     $_SESSION['message'] = "the '" . $deletedItem['title'] . "' is recovered to todo";
-    header("Location:todo.php");
+    header("Location:../views/todo.php");
 }
 

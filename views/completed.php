@@ -1,28 +1,9 @@
 <?php
+ob_start();
 session_start();
 $completedItems =$_SESSION['items']['completed'];
 ?>
-<!DOCTYPE HTML PUBLIC>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;400;700&display=swap"
-          rel="stylesheet">
-    <title>
-    </title>
-    <style>
-        .font-source-code-pro {
-            font-family: 'Source Code Pro', monospace;
-        }
-    </style>
-</head>
-<body>
-<div id="main" class="min-h-screen bg-gray-200 p-8">
+
     <!-- ::put the (todo, completed, or archived) content here;; -->
     <div class="bg-gray-100 space-y-12 py-10 rounded-2xl">
     <div>
@@ -59,7 +40,7 @@ $completedItems =$_SESSION['items']['completed'];
             </div>
 
             <div class="flex items-center px-4 gap-3">
-                <form method="post" action="assign-item-as-uncompleted.php" id="completed-item-<?php echo $id?>" class='my-0'>
+                <form method="post" action="../actions/assign-item-as-uncompleted-action.php" id="completed-item-<?php echo $id?>" class='my-0'>
                     <input hidden name="item_id" value="<?php echo $id; ?>">
                     <input type="checkbox" onclick="document.getElementById('completed-item-<?php echo $id; ?>').submit()"
                            checked class='h-6 w-6 bg-white checked:scale-75 transition-all duration-200 peer'/>
@@ -70,7 +51,7 @@ $completedItems =$_SESSION['items']['completed'];
                 </p>
             </div>
 
-            <form action="assign-as-deleted.php" method="post">
+            <form action="../actions/assign-as-deleted-action.php" method="post">
                 <input hidden name="item_id" value="<?php echo $id; ?>">
                 <input hidden name="delete_from" value="completed_item" />
                 <button type="submit"
@@ -91,6 +72,11 @@ $completedItems =$_SESSION['items']['completed'];
         <?php } ?>
     </div>
 </div>
+<?php
+$content = ob_get_contents();
+ob_clean();
+include 'template.php';
+?>
 </div>
 </body>
 </html>

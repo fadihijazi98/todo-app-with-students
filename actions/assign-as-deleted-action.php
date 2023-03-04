@@ -23,4 +23,4 @@ $_SESSION['items']['deleted'][$id] = [
 ];
 $_SESSION['message']="item '".  $item['title']."' is deleted";
 
-header("Location:deleted.php");
+header("Location:../views/deleted.php");
