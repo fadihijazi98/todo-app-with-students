@@ -22,7 +22,7 @@
 <div id="main" class="min-h-screen bg-gray-200 p-8">
     <!-- ::put the (todo, completed, or archived) content here;; -->
     <?php
-    if (isset($content)) {
+        if (isset($content)) {
 
         echo $content;
     } else {

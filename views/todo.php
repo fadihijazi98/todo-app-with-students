@@ -1,7 +1,7 @@
 <?php
 
-ob_start();
-session_start();
+include '../utils/init_including_template_util.php';
+include '../constants/ItemTypes.php';
 $todoItems = $_SESSION['items']['todo'];
 
 ?>
@@ -24,7 +24,7 @@ $todoItems = $_SESSION['items']['todo'];
         <!-- to-do item element -->
         <div class="container flex justify-center gap-16">
             <div class="w-80 border-r border-r-2 pr-4 border-purple-500">
-                <form action="../actions/insert_todo_action.php"
+                <form action="../actions/insert_item_action.php"
                       method="post">
                     <div class="mb-6">
                         <label for="title"
@@ -78,7 +78,7 @@ $todoItems = $_SESSION['items']['todo'];
                         </form>
                         <form action="../actions/assign_item_as_deleted_action.php" method="post">
                             <input hidden name="item_id" value="<?php echo $id; ?>">
-                            <input hidden name="delete_from" value="todo_item"/>
+                            <input hidden name="delete_from" value="<?php echo ItemTypes::TODO ?>"/>
                             <button type="submit"
                                     class="text-sm bg-red-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-red-500 duration-500">
                                 Delete
@@ -100,7 +100,5 @@ $todoItems = $_SESSION['items']['todo'];
     </div>
 
 <?php
-$content = ob_get_contents();
-ob_get_clean();
 
-include 'template.php';
+include '../utils/render_template_util.php';

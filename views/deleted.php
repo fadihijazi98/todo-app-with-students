@@ -1,6 +1,7 @@
 <?php
-ob_start();
-session_start();
+
+include '../utils/init_including_template_util.php';
+include '../constants/ItemTypes.php';
 
 $deletedItems = $_SESSION['items']['deleted'];
 ?>
@@ -46,7 +47,7 @@ $deletedItems = $_SESSION['items']['deleted'];
 
                 <div>
                     <!-- ::if the items.deleted `deleted_from` is todo;; -->
-                    <?php if ($deletedItem['deleted_from'] == 'todo_item') { ?>
+                    <?php if ($deletedItem['deleted_from'] == ItemTypes::TODO) { ?>
                         <form action="../actions/recover_item_action.php" method="POST">
                             <!-- {$id} -->
                             <input hidden name="item_id" value="<?php echo $id; ?>">
@@ -59,7 +60,7 @@ $deletedItems = $_SESSION['items']['deleted'];
                     <?php } ?>
 
                     <!-- ::if the items.deleted `deleted_from` is completed;; -->
-                    <?php if ($deletedItem['deleted_from'] == 'completed_item') { ?>
+                    <?php if ($deletedItem['deleted_from'] == ItemTypes::COMPLETED) { ?>
                         <form action="../actions/recover_item_action.php" method="POST">
                             <!-- {$id} -->
                             <input hidden name="item_id" value="<?php echo $id; ?>">
@@ -85,7 +86,5 @@ $deletedItems = $_SESSION['items']['deleted'];
 </div>
 
 <?php
-$content = ob_get_contents();
-ob_get_clean();
 
-include 'template.php';
+include '../utils/render_template_util.php';
