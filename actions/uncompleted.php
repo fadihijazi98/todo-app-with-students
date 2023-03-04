@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+include '../helpers/redirectHelper.php';
 
 $id=$_POST['item_id'];
 
@@ -10,10 +11,11 @@ $id=$_POST['item_id'];
     $_SESSION['items']['todo'][$id]=[
         "title"=>$completeditem["title"],
         "description"=>$completeditem["description"],
-        "created_at"=>date("Y-m-d H:i:s")
+        "created_at"=> $completeditem["created_at"]
     ];
 
     $_SESSION['message']='The "'. $completeditem["title"] . '" successfully uncompleted item to todo';
-    header('Location:../views/todo.php');
+
+    RedirectHelper::redirectToPreviousPage();
 
 ?>
