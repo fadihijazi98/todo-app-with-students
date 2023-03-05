@@ -3,6 +3,7 @@
 session_start();
 
 include '../helpers/RedirectHelper.php';
+include '../constants/ItemTypes.php';
 
 $id = $_POST['item_id'];
 $recover_to = $_POST['recover_to'];
@@ -15,7 +16,7 @@ unset($item['deleted_at']);
 
 $targetKey = "completed";
 
-if ($recover_to == "todo_item") {
+if ($recover_to == ItemTypes::TODO) {
 
     unset($item['completed_at']);
     $targetKey = "todo";
