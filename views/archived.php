@@ -1,10 +1,9 @@
 <?php
-ob_start();
-session_start();
+include '../utils/init_including _template_util.php';
+include '../constants/itemTypes.php';
+
 $deletedItems=$_SESSION['items']['deleted'];
-/*print_r($deletedItems);
-return;
-*/
+
 ?>
     <div class="bg-gray-100 space-y-12 py-10 rounded-2xl">
   <div>
@@ -49,11 +48,11 @@ return;
 
       <div>
         <!-- ::if the items.deleted `deleted_from` is todo;; -->
-        <?php if($deletedItem['deleted_from']=='todo_item'){ ?>
+        <?php if($deletedItem['deleted_from']== itemTypes::TODO){ ?>
         <form action="../actions/recover_item.php" method="POST">
           <!-- {$id} -->
           <input hidden name="item_id" value="<?php echo $id;?>">
-          <input hidden name="recover_to" value="todo_item" />
+          <input hidden name="recover_to" value="<?php echo itemTypes::TODO; ?>" />
           <button type="submit" class="text-sm bg-purple-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-purple-500 duration-500">
             Recover
             <?php } ?>
@@ -61,11 +60,11 @@ return;
         </form>
 
         <!-- ::if the items.deleted `deleted_from` is completed;; -->
-         <?php if($deletedItem['deleted_from'] =='completed_item'){ ?>
+         <?php if($deletedItem['deleted_from'] == itemTypes::COMPLETED){ ?>
         <form action="../actions/recover_item.php" method="POST">
           <!-- {$id} -->
           <input hidden name="item_id" value="<?php echo $id;?>">
-          <input hidden name="recover_to" value="completed_item" />
+          <input hidden name="recover_to" value="<?php echo itemTypes::COMPLETED; ?>" />
           <button class="text-sm bg-green-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-green-500 duration-500">
             Recover
             <?php } ?>
@@ -87,8 +86,4 @@ return;
 
 </div>
 
-<?php
-$content=ob_get_contents();
-ob_clean();
-include 'template.php';
-?>
+<?php include '../utils/end_template.php'; ?>

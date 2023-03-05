@@ -1,6 +1,7 @@
 <?php
-ob_start();
-session_start();
+include '../utils/init_including _template_util.php';
+include '../constants/itemTypes.php';
+
 $todoItems=$_SESSION['items']['todo'];
 ?>
 
@@ -60,7 +61,7 @@ $todoItems=$_SESSION['items']['todo'];
                             <?php echo $item['title']; ?>
                         </>
                     </div>
-                    <form action="../actions/assign-todo-item-as-completed.php" method="post" id="todo-item-<?php echo $id;?>"
+                    <form action="../actions/assign-item-as-completed.php" method="post" id="todo-item-<?php echo $id;?>"
                           class="my-0 flex items-center px-4 gap-3">
                                 <span class=''>
                                   <input hidden name="item_id" value="<?php echo $id;?>">
@@ -73,9 +74,9 @@ $todoItems=$_SESSION['items']['todo'];
 
                         </p>
                     </form>
-                    <form action="../actions/assign-todo-item-as-deleted.php" method="post">
+                    <form action="../actions/assign-item-as-deleted.php" method="post">
                         <input hidden name="item_id" value="<?php echo $id ;?>">
-                        <input hidden name="delete_from" value="todo_item" />
+                        <input hidden name="delete_from" value="<?php echo itemTypes::TODO; ?>"/>
                         <button type="submit"
                                 class="text-sm bg-red-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-red-500 duration-500">
                             Delete
@@ -93,8 +94,4 @@ $todoItems=$_SESSION['items']['todo'];
         </div>
     </div>
 </div>
-<?php
-$content=ob_get_contents();
-ob_clean();
-include 'template.php';
-?>
+<?php include '../utils/end_template.php'; ?>

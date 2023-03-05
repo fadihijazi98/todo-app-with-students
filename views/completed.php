@@ -1,6 +1,7 @@
 <?php
-ob_start();
-session_start();
+include '../utils/init_including _template_util.php';
+include '../constants/itemTypes.php';
+
 $completedItems=$_SESSION['items']['completed'];
 ?>
 
@@ -43,7 +44,7 @@ $completedItems=$_SESSION['items']['completed'];
             </div>
 
             <div class="flex items-center px-4 gap-3">
-                <form method="post" action="../actions/unCompleted.php" id="completed-item-<?php echo $id;?>" class='my-0'>
+                <form method="post" action="../actions/assign-item-as-unCompleted.php" id="completed-item-<?php echo $id;?>" class='my-0'>
                     <input hidden name="item_id" value="<?php echo $id;?>">
                     <input type="checkbox" onclick="document.getElementById('completed-item-<?php echo $id;?>').submit()"
                            checked class='h-6 w-6 bg-white checked:scale-75 transition-all duration-200 peer'/>
@@ -54,9 +55,9 @@ $completedItems=$_SESSION['items']['completed'];
                 </p>
             </div>
 
-            <form action="../actions/assign-todo-item-as-deleted.php" method="post">
+            <form action="../actions/assign-item-as-deleted.php" method="post">
                 <input hidden name="item_id" value="<?php echo $id;?>">
-                <input hidden name="delete_from" value="completed_item" />
+                <input hidden name="delete_from" value="<?php echo itemTypes::COMPLETED; ?>" />
                 <button type="submit"
                         class="text-sm bg-red-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-red-500 duration-500">
                     Delete
@@ -75,8 +76,4 @@ $completedItems=$_SESSION['items']['completed'];
         <?php } ?>
     </div>
 </div>
-<?php
-$content=ob_get_contents();
-ob_clean();
-include 'template.php';
-?>
+<?php include '../utils/end_template.php'; ?>

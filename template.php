@@ -29,7 +29,6 @@
         echo "[BAD USAGE] of template, \$content variable should be overridden";
     }
     ?>
-    ?>
 </div>
 </body>
 </html>
