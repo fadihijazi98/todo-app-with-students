@@ -51,7 +51,7 @@ $deletedItems = $_SESSION['items']['deleted'];
                         <form action="../actions/recover_item_action.php" method="POST">
                             <!-- {$id} -->
                             <input hidden name="item_id" value="<?php echo $id; ?>">
-                            <input hidden name="recover_to" value="todo_item"/>
+                            <input hidden name="recover_to" value="<?php echo ItemTypes::TODO; ?>"/>
                             <button type="submit"
                                     class="text-sm bg-purple-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-purple-500 duration-500">
                                 Recover
@@ -64,7 +64,7 @@ $deletedItems = $_SESSION['items']['deleted'];
                         <form action="../actions/recover_item_action.php" method="POST">
                             <!-- {$id} -->
                             <input hidden name="item_id" value="<?php echo $id; ?>">
-                            <input hidden name="recover_to" value="completed_item"/>
+                            <input hidden name="recover_to" value="<?php echo ItemTypes::COMPLETED; ?>"/>
                             <button class="text-sm bg-green-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-green-500 duration-500">
                                 Recover
                             </button>
