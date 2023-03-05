@@ -1,4 +1,6 @@
 <?php
+include "../helper/RedirectHelper.php";
+include "../helper/GeneraterHelper.php";
 session_start();
 $id=$_POST['item_id'];
 $completedItem=$_SESSION['items']['completed'][$id];
@@ -9,4 +11,4 @@ $_SESSION['items']['todo'][$id]=[
     'created_at'=>$completedItem['created_at']
 ];
 $_SESSION['message']="item '".  $completedItem['title']."' is not completed any more";
-header("Location:../views/todo.php");
+RedirectHelper::redirectToPreviousPage();

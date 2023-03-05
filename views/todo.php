@@ -1,6 +1,6 @@
 <?php
-ob_start();
-session_start();
+include '../utils/init-including-template-util.php';
+include "../const/ItemTypes.php";
 $todoItems =$_SESSION['items']['todo'];
 //echo session_save_path();die();
 ?>
@@ -74,7 +74,7 @@ $todoItems =$_SESSION['items']['todo'];
                             </form>
                             <form action="../actions/assign-as-deleted-action.php" method="post">
                                 <input hidden name="item_id" value="<?php echo $id; ?>">
-                                <input hidden name="delete_from" value="todo_item" />
+                                <input hidden name="delete_from" value="<?php echo ItemTypes::TODO?>" />
                                 <button type="submit"
                                         class="text-sm bg-red-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-red-500 duration-500">
                                     Delete
@@ -97,9 +97,7 @@ $todoItems =$_SESSION['items']['todo'];
     </div>
 
 <?php
-$content = ob_get_contents();
-ob_clean();
-include 'template.php';
+include '../utils/render-template-util.php';
 ?>
 </div>
 </body>
