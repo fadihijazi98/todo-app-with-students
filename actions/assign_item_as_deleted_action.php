@@ -2,35 +2,35 @@
 
 session_start();
 
+include "../constants/ItemTypes.php";
+
+include "../helpers/GeneratorHelper.php";
+
+include "../helpers/RedirectHelper.php";
+
 $id = $_POST["item_id"];
+
 $deleted_from = $_POST["delete_from"];
 
-if($deleted_from=="completed_item"){
-
-    $item =$_SESSION["items"]["completed"][$id];
-    $completed_at = $item["completed_at"];
+if($deleted_from==ItemTypes::COMPLETED)
+{
+    $Item =$_SESSION["items"]["completed"][$id];
     unset($_SESSION["items"]["completed"][$id]);
-    $_SESSION["message"] = "The '{$item["title"]}' is deleted now";
-
 
 }
 else
 {
-    $item =$_SESSION["items"]["todo"][$id];
-    $completed_at = null;
+    $Item = $_SESSION["items"]["todo"][$id];
+    $Item["completed_at"] = null;
     unset($_SESSION["items"]["todo"][$id]);
-    $_SESSION["message"] = "The '{$item["title"]}' is deleted now";
-
 }
 
+$_SESSION["items"]["deleted"][$id]=$Item;
 
-$_SESSION["items"]["deleted"][$id]=[
-    "title"=>$item["title"],
-    "description"=>$item["description"],
-    "created_at"=>$item["created_at"],
-    "completed_at"=>$completed_at,
-    "deleted_at"=>date("Y-m-d H:i:s"),
-    "deleted_from"=>$deleted_from
+$_SESSION["items"]["deleted"][$id]["deleted_at"] = GeneratorHelper::generateCurrentDate();
 
-];
-header("Location:../views/deleted.php");
+$_SESSION["items"]["deleted"][$id]["deleted_from"] = $deleted_from;
+
+$_SESSION["message"] = "The '{$Item["title"]}' is deleted now";
+
+RedirectHelper::redirectToPreviousPage("../views/deleted.php");

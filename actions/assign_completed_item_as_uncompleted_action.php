@@ -2,21 +2,22 @@
 
 session_start();
 
+include "../helpers/RedirectHelper.php";
+
+
 $id = $_POST["item_id"];
 
-$completedItem = $_SESSION["items"]["completed"][$id];
+$Item = $_SESSION["items"]["completed"][$id];
 
-$_SESSION["items"]["todo"][$id]= [
-    "title"=>$completedItem["title"],
-    "description"=>$completedItem["description"],
-    "created_at"=>$completedItem["created_at"]
-];
+$_SESSION["items"]["todo"][$id]= $Item;
 
-$_SESSION["message"] = "The '{$completedItem["title"]}' is uncompleted now";
+
+$_SESSION["message"] = "The '{$Item["title"]}' is uncompleted now";
 
 unset($_SESSION["items"]["completed"][$id]);
 
-header("Location:../views/todo.php");
+RedirectHelper::redirectToPreviousPage("../views/todo.php");
+
 
 
 

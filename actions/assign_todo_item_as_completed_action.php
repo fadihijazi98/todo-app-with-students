@@ -2,22 +2,24 @@
 
 session_start();
 
+include "../helpers/GeneratorHelper.php";
+
+require "../helpers/RedirectHelper.php";
+
+
 $id = $_POST["item_id"];
 
-$todoItem = $_SESSION["items"]["todo"][$id];
+$Item = $_SESSION["items"]["todo"][$id];
 
-$_SESSION["items"]["completed"][$id]=[
-    "title"=>$todoItem["title"],
-    "description"=>$todoItem["description"],
-    "created_at"=>$todoItem["created_at"],
-    "completed_at"=>date("Y-m-d H:i:s")
-];
+$_SESSION["items"]["completed"][$id]=$Item;
 
-$_SESSION["message"] = "The '{$todoItem["title"]}' is completed now :)";
+$_SESSION["items"]["completed"][$id]["completed_at"] = GeneratorHelper::generateCurrentDate();
+
+$_SESSION["message"] = "The '{$Item["title"]}' is completed now :)";
 
 unset($_SESSION["items"]["todo"][$id]);
 
-header("Location:../views/completed.php");
+RedirectHelper::redirectToPreviousPage("../views/completed.php");
 
 
 

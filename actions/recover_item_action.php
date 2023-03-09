@@ -2,30 +2,38 @@
 
 session_start();
 
-$id = $_POST["item_id"];
-$recover_to = $_POST["recover_to"];
-$item = $_SESSION["items"]["deleted"][$id];
-$_SESSION["message"] = "The '{$item["title"]}' is recovered now :)";
+include "../helpers/RedirectHelper.php";
 
+include "../constants/ItemTypes.php";
+
+$id = $_POST["item_id"];
+
+$recover_to = $_POST["recover_to"];
+
+$Item = $_SESSION["items"]["deleted"][$id];
+
+$_SESSION["message"] = "The '{$Item["title"]}' is recovered now :)";
+
+unset($Item["deleted_at"]);
+
+unset($Item["deleted_from"]);
 
 unset($_SESSION["items"]["deleted"][$id]);
 
-if($recover_to == "todo_item")
+$targetKey = "completed";
+$page = "../views/completed.php";
+
+if($recover_to ==  ItemTypes::TODO )
 {
-    $_SESSION["items"]["todo"][$id]=[
-        "title"=>$item["title"],
-        "description"=>$item["description"],
-        "created_at"=>$item["created_at"]
-    ];
-    header("Location:../views/todo.php");
+    $targetKey = "todo";
+    unset($Item["completed_at"]);
+    $page = "../views/todo.php";
+
 }
-else
-{
-    $_SESSION["items"]["completed"][$id]=[
-        "title"=>$item["title"],
-        "description"=>$item["description"],
-        "created_at"=>$item["created_at"],
-        "completed_at"=>$item["completed_at"]
-    ];
-    header("Location:../views/completed.php");
-}
+
+$_SESSION["items"][$targetKey][$id]=$Item;
+
+
+
+RedirectHelper::redirectToPreviousPage($page);
+

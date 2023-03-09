@@ -1,8 +1,8 @@
 <?php
 
-ob_start();
+include "../utils/start_initialization.php";
 
-session_start();
+include "../constants/ItemTypes.php";
 
 $deletedItems = $_SESSION["items"]["deleted"];
 
@@ -51,23 +51,23 @@ $deletedItems = $_SESSION["items"]["deleted"];
 
                 <div>
                     <!-- ::if the items.deleted `deleted_from` is todo;; -->
-                    <?php if($deletedItem["deleted_from"]=="todo_item"){?>
+                    <?php if($deletedItem["deleted_from"]==ItemTypes::TODO){?>
 
                     <form action="../actions/recover_item_action.php" method="POST">
                         <!-- {$id} -->
                         <input hidden name="item_id" value="<?php echo $id; ?>">
-                        <input hidden name="recover_to" value="todo_item" />
+                        <input hidden name="recover_to" value="<?php echo ItemTypes::TODO ; ?>" />
                         <button type="submit" class="text-sm bg-purple-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-purple-500 duration-500">
                             Recover
                         </button>
                     </form>
                     <?php } ?>
                     <!-- ::if the items.deleted `deleted_from` is completed;; -->
-                    <?php if($deletedItem["deleted_from"]=="completed_item"){?>
+                    <?php if($deletedItem["deleted_from"]==ItemTypes::COMPLETED){?>
                     <form action="../actions/recover_item_action.php" method="POST">
                         <!-- {$id} -->
                         <input hidden name="item_id" value="<?php echo $id; ?>">
-                        <input hidden name="recover_to" value="completed_item" />
+                        <input hidden name="recover_to" value="<?php echo ItemTypes::COMPLETED ; ?>" />
                         <button class="text-sm bg-green-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-green-500 duration-500">
                             Recover
                         </button>
@@ -91,8 +91,4 @@ $deletedItems = $_SESSION["items"]["deleted"];
 
 <?php
 
-$content = ob_get_contents();
-
-ob_clean();
-
-include "template.php";
+include "../utils/end_initialization.php";
