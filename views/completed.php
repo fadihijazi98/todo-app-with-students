@@ -1,7 +1,7 @@
 <?php
-ob_start();
-
-session_start();
+include "../constant/itemType.php";
+include "../Utils/init_include_template_util.php";
+include "../helpers/GeneratorHelper.php";
 $items=$_SESSION["items"]["completed"];
 
 ?>
@@ -21,10 +21,17 @@ $items=$_SESSION["items"]["completed"];
                 Completed items
             </h3>
             <!-- ::if statement start here to show this message once;; -->
-            <div class="bg-green-500 my-8 py-4 font-source-code-pro text-lg text-white text-center">
-                <!-- {$redirect_message} -->
-            </div>
-            <!-- ::if statement end here to show this message once;; -->
+            <?php if (key_exists('message', $_SESSION)) { ?>
+
+                <div class="bg-purple-500 my-8 py-4 font-source-code-pro text-lg text-white text-center">
+                    <!-- {$redirect_message} -->
+                    <?php
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                    ?>
+                </div>
+                <!-- ::if statement end here to show this message once;; -->
+            <?php } ?>
         </div>
         <!-- completed item element -->
         <div class="container mx-auto">
@@ -95,12 +102,7 @@ $items=$_SESSION["items"]["completed"];
         </div>
     </div>
 
-
 <?php
-$contents=ob_get_contents();
-ob_get_clean();
-?>
 
-<?php
-include "template.php";
+include "../Utils/render_template_util.php";
 ?>

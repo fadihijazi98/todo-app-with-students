@@ -44,5 +44,5 @@ ob_start();
                 $contents=ob_get_contents();
                 ob_get_clean();
 
-                include "template.php";
+                include "../template.php";
                 ?>

@@ -1,7 +1,11 @@
 <?php
-ob_start();
-session_start();
+include "../constant/itemType.php";
+include "../Utils/init_include_template_util.php";
+include "../helpers/GeneratorHelper.php";
 ?>
+
+
+
     <div class="bg-gray-100 space-y-12 py-10 rounded-2xl">
         <div>
             <form action="home.php" method="POST">
@@ -11,10 +15,17 @@ session_start();
             </form>
             <h3 class="text-3xl text-center font-source-code-pro"> Todo items </h3>
             <!-- ::if statement start here to show this message once;; -->
+            <?php if (key_exists('message', $_SESSION)) { ?>
+
             <div class="bg-purple-500 my-8 py-4 font-source-code-pro text-lg text-white text-center">
                 <!-- {$redirect_message} -->
+                <?php
+                echo $_SESSION['message'];
+                unset($_SESSION['message']);
+                ?>
             </div>
             <!-- ::if statement end here to show this message once;; -->
+            <?php } ?>
         </div>
         <!-- to-do item element -->
         <div class="container flex justify-center gap-16">
@@ -90,9 +101,9 @@ session_start();
 
 
                         <form action="../action/assign_item_as_deleted_action.php" method="post">
-                            <input hidden name="item_id" value="<?php  echo $id?>"
-                            >
-                            <input hidden name="delete_from" value="todo"/>
+                            <input hidden name="item_id" value="<?php  echo $id?>">
+
+                            <input hidden name="delete_from" value=<?php echo ItemType::TODO;?>>
                             <button type="submit"
                                     class="text-sm bg-red-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-red-500 duration-500">
                                 Delete
@@ -113,7 +124,6 @@ session_start();
                     <!-- ::loop of items.todo should end here;; -->
 
                     <?php
-
                     }
                     ?>
                 </div>
@@ -121,7 +131,7 @@ session_start();
         </div>
     </div>
 <?php
-$contents=ob_get_contents();
-ob_get_clean();
 
-include "template.php";
+include "../Utils/render_template_util.php";
+
+?>

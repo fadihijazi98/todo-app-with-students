@@ -1,8 +1,11 @@
 
 
 <?php
-ob_start();
-session_start();
+include "../constant/itemType.php";
+include "../Utils/init_include_template_util.php";
+include "../helpers/GeneratorHelper.php";
+
+
 $items=$_SESSION["items"]["deleted"];
 ?>
 
@@ -20,10 +23,17 @@ $items=$_SESSION["items"]["deleted"];
             </h3>
 
             <!-- ::if statement start here to show this message once;; -->
-            <div class="bg-red-500 my-8 py-4 font-source-code-pro text-lg text-white text-center">
-                <!-- {$session_message} -->
-            </div>
-            <!-- ::if statement end here to show this message once;; -->
+            <?php if (key_exists('message', $_SESSION)) { ?>
+
+                <div class="bg-purple-500 my-8 py-4 font-source-code-pro text-lg text-white text-center">
+                    <!-- {$redirect_message} -->
+                    <?php
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                    ?>
+                </div>
+                <!-- ::if statement end here to show this message once;; -->
+            <?php } ?>
         </div>
         <div class="container mx-auto">
             <!-- ::loop of items.deleted should start here;; -->
@@ -61,13 +71,13 @@ $items=$_SESSION["items"]["deleted"];
                 <div>
                     <!-- ::if the items.deleted `deleted_from` is todo;; -->
                     <?php
-                    if ($item["deleted_from"]=="todo"){
+                    if ($item["deleted_from"]==ItemType::TODO){
 
                     ?>
                     <form action="../action/recover_item_action.php" method="POST">
                         <!-- {$id} -->
                         <input hidden name="item_id" value=<?php echo $id ?>>
-                        <input hidden name="recover_to" value="todo" />
+                        <input hidden name="recover_to" value=<?php echo ItemType::TODO?> />
                         <button type="submit" class="text-sm bg-purple-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-purple-500 duration-500">
                             Recover
                         </button>
@@ -78,13 +88,13 @@ $items=$_SESSION["items"]["deleted"];
 
                     <!-- ::if the items.deleted `deleted_from` is completed;; -->
                     <?php
-                    if ($item["deleted_from"]=="completed"){
+                    if ($item["deleted_from"]==ItemType::COMPLETED){
 
                     ?>
                     <form action="../action/recover_item_action.php" method="POST">
                         <!-- {$id} -->
                         <input hidden name="item_id" value=<?php echo $id ?>>
-                        <input hidden name="recover_to" value="completed" />
+                        <input hidden name="recover_to" value=<?php echo ItemType::COMPLETED ?>>
                         <button class="text-sm bg-green-500 text-white px-3 py-2 mx-4 rounded hover:bg-white hover:text-green-500 duration-500">
                             Recover
                         </button>
@@ -114,11 +124,6 @@ $items=$_SESSION["items"]["deleted"];
         </div>
         </div>
 <?php
-$contents=ob_get_contents();
-ob_get_clean();
-?>
 
-<?php
-include "template.php";
+include "../Utils/render_template_util.php";
 ?>
-

@@ -1,9 +1,15 @@
 <?php
-
 session_start();
+include "../helpers/GeneratorHelper.php";
+include "../helpers/RedirectHelper.php";
+include "../constant/itemType.php";
+
+
 $id=$_POST["item_id"];
 $recover_to=$_POST["recover_to"];
 $item=$_SESSION["items"]["deleted"][$id];
+unset($_SESSION["items"]["deleted"][$id]);
+
 if ($recover_to=="completed"){
 
     $_SESSION["items"]["completed"][$id]=[
@@ -13,7 +19,6 @@ if ($recover_to=="completed"){
         "completed_at" => $item["completed_at"],
         "created_at" =>$item["created_at"]
     ];
-       unset($_SESSION["items"]["deleted"][$id]);
 
 }else{
     $_SESSION["items"]["todo"][$id]=[
@@ -23,9 +28,10 @@ if ($recover_to=="completed"){
         "completed_at" => $item["completed_at"],
         "created_at" =>$item["created_at"]
     ];
-    unset($_SESSION["items"]["deleted"][$id]);
-
 
 }
-header("Location:../views/delete.php");
+$_SESSION['message'] = "the '" . $item['title'] . "' is recovered now.";
+
+RedirectHelper::redirectToPreviousPage();
+
 
